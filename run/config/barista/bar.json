@@ -1,0 +1,59 @@
+{
+  "moduleList": [
+    {
+      "name": "icon",
+      "display": true,
+      "context": "icon.png"
+    },
+    {
+      "name": "text",
+      "display": true,
+      "context": "Minecraft 1.16.5"
+    },
+    {
+      "name": "clock",
+      "display": true,
+      "context": "HH:mm:ss"
+    },
+    {
+      "name": "session",
+      "display": true
+    },
+    {
+      "name": "day",
+      "display": true
+    },
+    {
+      "name": "fps",
+      "display": true
+    },
+    {
+      "name": "ping",
+      "display": true
+    },
+    {
+      "name": "memory",
+      "display": true
+    },
+    {
+      "name": "biome",
+      "display": true
+    },
+    {
+      "name": "position",
+      "display": true
+    },
+    {
+      "name": "looking_at",
+      "display": true
+    },
+    {
+      "name": "target",
+      "display": true
+    },
+    {
+      "name": "target_health",
+      "display": true
+    }
+  ]
+}

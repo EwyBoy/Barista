@@ -1,0 +1,6 @@
+
+#FPS Monitor - Settings File
+[display]
+	#Displays Information on the Game-Window Bar
+	game_window_info = true
+
