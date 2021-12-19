@@ -8,6 +8,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.network.play.NetworkPlayerInfo;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraftforge.fml.ModList;
 
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
@@ -23,6 +24,15 @@ public class ModuleHandler {
         builder.append(ctx).append(separator);
     }
 
+    public static void getIcon(Minecraft mc, String ctx) {
+        InputStream formattedIcon = ModuleFormatter.formatIcon(ctx);
+        if (formattedIcon != null) mc.getWindow().setIcon(formattedIcon, formattedIcon);
+    }
+
+    public static void getMods(StringBuilder builder) {
+        builder.append("Mods: ").append(ModList.get().getMods().size()).append(separator);
+    }
+
     public static void getFps(Minecraft mc, StringBuilder builder) {
         builder.append(ModuleFormatter.formatText(mc.fpsString.split("\\s+")[0], Translation.Display.FPS)).append(separator);
     }
@@ -30,7 +40,9 @@ public class ModuleHandler {
     public static void getPing(Minecraft mc, StringBuilder builder) {
         NetworkPlayerInfo entry = Objects.requireNonNull(mc.player).connection.getPlayerInfo(mc.player.getUUID());
         if (entry != null) {
-            builder.append(ModuleFormatter.formatText(String.valueOf(entry.getLatency()), Translation.Display.PING)).append(separator);
+            if (entry.getLatency() != 0) {
+                builder.append(ModuleFormatter.formatText(String.valueOf(entry.getLatency()), Translation.Display.PING)).append(separator);
+            }
         }
     }
 
@@ -55,21 +67,28 @@ public class ModuleHandler {
         }
     }
 
+    public static void getChunk(Minecraft mc, StringBuilder builder) {
+        if (mc.level != null && mc.player != null) {
+            builder.append("Chunk: ").append(mc.level.getChunk(mc.player.blockPosition()).getPos()).append(separator);
+        }
+    }
+
     public static void getBiome(Minecraft mc, StringBuilder builder) {
         if (mc.player != null) {
             builder.append("Biome: ").append(Objects.requireNonNull(mc.player.clientLevel.getBiome(mc.player.blockPosition()).getRegistryName()).getPath().toUpperCase(Locale.ROOT)).append(separator);
         }
     }
 
-    public static void getIcon(Minecraft mc, String ctx) {
-        InputStream formattedIcon = ModuleFormatter.formatIcon(ctx);
-        if (formattedIcon != null) mc.getWindow().setIcon(formattedIcon, formattedIcon);
+    public static void getDimension(Minecraft mc, StringBuilder builder) {
+        if (mc.level != null) {
+            builder.append("Dim: ").append(mc.level.dimension().location().getPath().toUpperCase()).append(separator);
+        }
     }
 
     public static void getLookingAt(Minecraft mc, StringBuilder builder) {
         BlockState state = RayTracer.getStateFromRaytrace(mc);
         if (state != null) {
-            builder.append(Objects.requireNonNull(state.getBlock().getRegistryName()).getPath()).append(separator);
+            builder.append(Objects.requireNonNull(state.getBlock().getName().getString())).append(separator);
         }
     }
 
@@ -104,6 +123,12 @@ public class ModuleHandler {
     public static void getDay(Minecraft mc, StringBuilder builder) {
         if (mc.level != null) {
             builder.append("Day: ").append(mc.level.getDayTime() / 24000L).append(separator);
+        }
+    }
+
+    public static void getFacing(Minecraft mc, StringBuilder builder) {
+        if (mc.player != null) {
+            builder.append("Facing: ").append(mc.player.getDirection().toString().toUpperCase()).append(separator);
         }
     }
 

@@ -29,6 +29,7 @@ public class GameBar {
                 switch (module.getName()) {
                     case "icon": ModuleHandler.getIcon(mc, module.getContext()); break;
                     case "text": ModuleHandler.getText(builder, module.getContext()); break;
+                    case "mods": ModuleHandler.getMods(builder); break;
                     case "clock": ModuleHandler.getClock(builder, module.getContext()); break;
                     case "session": ModuleHandler.getSession(builder); break;
                     case "day": ModuleHandler.getDay(mc, builder); break;
@@ -37,6 +38,9 @@ public class GameBar {
                     case "memory": ModuleHandler.getMemory(builder); break;
                     case "biome": ModuleHandler.getBiome(mc, builder); break;
                     case "position": ModuleHandler.getPosition(mc, builder); break;
+                    case "chunk": ModuleHandler.getChunk(mc, builder); break;
+                    case "dimension": ModuleHandler.getDimension(mc, builder); break;
+                    case "facing": ModuleHandler.getFacing(mc, builder); break;
                     case "looking_at": ModuleHandler.getLookingAt(mc, builder); break;
                     case "target": ModuleHandler.getTarget(mc, builder); break;
                     case "target_health": ModuleHandler.getTargetHealth(mc, builder); break;

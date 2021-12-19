@@ -27,13 +27,17 @@ public class Barista {
     public static Clockwork clockwork;
 
     public Barista() {
-        clockwork = new Clockwork();
-        clockwork.start();
+        startClock();
         ignoreServerOnly();
         JsonHandler.setup();
         InfoHandler.setup();
         Settings.setup();
         FMLJavaModLoadingContext.get().getModEventBus().register(this);
+    }
+
+    private void startClock() {
+        clockwork = new Clockwork();
+        clockwork.start();
     }
 
     // Make sure the mod being absent on the other network side does not cause the client to display the server as incompatible

@@ -1,5 +1,6 @@
 package com.ewyboy.barista.json;
 
+import com.ewyboy.barista.Barista;
 import com.ewyboy.barista.util.ModLogger;
 import net.minecraftforge.fml.loading.FMLPaths;
 
@@ -9,7 +10,7 @@ import java.io.IOException;
 
 public class InfoHandler {
 
-    public static final File INFO_FILE = new File(FMLPaths.CONFIGDIR.get() + "/worldspawn/Info.txt");
+    public static final File INFO_FILE = new File(FMLPaths.CONFIGDIR.get() + "/" +  Barista.MOD_ID + "/Info.txt");
 
     public static void setup() {
         createInfoFile();
@@ -18,7 +19,7 @@ public class InfoHandler {
     private static void createInfoFile() {
         try {
             if (InfoHandler.INFO_FILE.createNewFile()) {
-                ModLogger.info("Creating Seed Drop information file: " + InfoHandler.INFO_FILE.getName());
+                ModLogger.info("Creating Barista information file: " + InfoHandler.INFO_FILE.getName());
                 FileWriter writer = new FileWriter(INFO_FILE);
                 writeInfoFile(writer);
             }
@@ -29,7 +30,7 @@ public class InfoHandler {
     }
 
     private static void writeInfoFile(FileWriter writer) throws IOException {
-        writer.write("World Spawn - Information");
+        writer.write("Barista - Information");
         writer.write("\n");
 
         writer.write("Edit the spawn.json file to add or remove entries from the grass loot table.");

@@ -1,9 +1,11 @@
 ## TODO
 * [x] JSON Modules 
-* [x] Display based on JSON order 
+* [x] Display based on JSON order
+* [ ] RayTrace fluids
+* [ ] Check empty module String
+* [ ] Move icon from resource into icon folder
 * [ ] Reloadable 
 * [ ] API
-
 
 ## Modules
 * [x] icon
@@ -13,10 +15,11 @@
 * [x] Memory
 * [x] Biome
 * [x] Position
-* [ ] Chunk
+* [x] Chunk
 * [x] Targeted
-* [ ] Facing
-* [ ] Mods
+* [x] Facing
+* [x] Mods
 * [x] Clock
 * [x] Session
 * [x] Days
+* [x] Dimension

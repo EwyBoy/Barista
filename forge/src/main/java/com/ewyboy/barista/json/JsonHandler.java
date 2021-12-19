@@ -22,17 +22,25 @@ public class JsonHandler {
     static {
         modules.add(new BarModule("icon", true, "icon.png"));
         modules.add(new BarModule("text", true, "Minecraft " + SharedConstants.getCurrentVersion().getName()));
+        modules.add(new BarModule("mods", true));
+
         modules.add(new BarModule("clock", true, "HH:mm:ss"));
         modules.add(new BarModule("session", true));
+        modules.add(new BarModule("day", true));
+
         modules.add(new BarModule("fps", true));
         modules.add(new BarModule("ping", true));
         modules.add(new BarModule("memory", true));
+
         modules.add(new BarModule("biome", true));
         modules.add(new BarModule("position", true));
+        modules.add(new BarModule("chunk", true));
+        modules.add(new BarModule("dimension", true));
+
+        modules.add(new BarModule("facing", true));
         modules.add(new BarModule("looking_at", true));
         modules.add(new BarModule("target", true));
         modules.add(new BarModule("target_health", true));
-
     }
 
     public static BarConfig barConfig = new BarConfig(modules);

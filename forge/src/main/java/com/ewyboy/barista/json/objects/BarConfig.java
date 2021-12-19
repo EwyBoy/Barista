@@ -17,4 +17,5 @@ public class BarConfig {
     public void setModuleList(List<BarModule> moduleList) {
         this.moduleList = moduleList;
     }
+
 }

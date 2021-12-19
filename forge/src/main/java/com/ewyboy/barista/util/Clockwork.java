@@ -16,7 +16,19 @@ public class Clockwork {
 
     public String duration(int sec) {
         Duration duration = Duration.ofSeconds(sec);
-        return duration.toString();
+        StringBuilder builder = new StringBuilder();
+
+        if (duration.toHours() != 0) {
+            builder.append(duration.toHours()).append("hours ");
+        }
+        if (duration.toMinutes() != 0) {
+            builder.append(duration.toMinutes()).append("5min ");
+        }
+
+        int clockSec = sec % 60;
+        builder.append(clockSec).append("sec");
+
+        return builder.toString();
     }
 
     public String getSessionLength() {

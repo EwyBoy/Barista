@@ -16,8 +16,8 @@ public class ModuleFormatter {
         String[] string = pos.split(",");
         return
                 "x " + string[0] + ", " +
-                        "y" + string[1] + ", " +
-                        "z" + string[2] + ", " ;
+                "y"  + string[1] + ", " +
+                "z"  + string[2];
     }
 
     public static String formatText(String text, String translation) {
