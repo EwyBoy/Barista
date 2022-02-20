@@ -5,7 +5,9 @@ import com.ewyboy.barista.cleint.Keybindings;
 import com.ewyboy.barista.config.Settings;
 import com.ewyboy.barista.json.InfoHandler;
 import com.ewyboy.barista.json.JsonHandler;
+import com.ewyboy.barista.module.ModuleHandler;
 import com.ewyboy.barista.util.Clockwork;
+import net.minecraft.client.Minecraft;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ExtensionPoint;
@@ -15,6 +17,8 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.network.FMLNetworkConstants;
 import org.apache.commons.lang3.tuple.Pair;
+
+import java.util.Objects;
 
 import static com.ewyboy.barista.Barista.MOD_ID;
 
@@ -50,6 +54,13 @@ public class Barista {
 
     @SubscribeEvent
     public void clientRegister(FMLClientSetupEvent event) {
+        event.enqueueWork(() -> JsonHandler.barConfig.getModuleList().forEach(barModule -> {
+            if (Objects.equals(barModule.getName(), "icon")) {
+                if (barModule.isDisplay()) {
+                    ModuleHandler.getIcon(Minecraft.getInstance(), barModule.getContext());
+                }
+            }
+        }));
         Keybindings.setup();
         MinecraftForge.EVENT_BUS.register(new GameBar());
     }

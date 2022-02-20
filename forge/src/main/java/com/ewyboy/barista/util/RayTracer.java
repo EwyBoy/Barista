@@ -2,7 +2,11 @@ package com.ewyboy.barista.util;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
+import net.minecraft.item.ItemUseContext;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.vector.Vector3d;
 
@@ -32,6 +36,7 @@ public class RayTracer {
             if (mc.player != null) playerZ = mc.player.getZ();
 
             if(blockX == Math.floor(blockX) && blockX <= playerX)     {blockX--;}
+            if(blockY == Math.floor(blockY) && blockY <= playerY + 1) {blockY--;}
             if(blockY == Math.floor(blockY) && blockY <= playerY + 1) {blockY--;}
             if(blockZ == Math.floor(blockZ) && blockZ <= playerZ)     {blockZ--;}
 

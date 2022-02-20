@@ -4,6 +4,7 @@
 * [ ] RayTrace fluids
 * [ ] Check empty module String
 * [ ] Move icon from resource into icon folder
+* [ ] Client Sided commands
 * [ ] Reloadable 
 * [ ] API
 

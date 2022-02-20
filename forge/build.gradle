@@ -24,6 +24,8 @@ java.toolchain.languageVersion = JavaLanguageVersion.of(8)
 
 minecraft {
 
+    //accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
+
     apply plugin: 'idea'
     mappings channel: MCP_CHANNEL, version: MCP_MAPPINGS
 

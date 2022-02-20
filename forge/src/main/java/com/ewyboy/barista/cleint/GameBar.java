@@ -27,7 +27,6 @@ public class GameBar {
         for (BarModule module : JsonHandler.barConfig.getModuleList()) {
             if (module.isDisplay()) {
                 switch (module.getName()) {
-                    case "icon": ModuleHandler.getIcon(mc, module.getContext()); break;
                     case "text": ModuleHandler.getText(builder, module.getContext()); break;
                     case "mods": ModuleHandler.getMods(builder); break;
                     case "clock": ModuleHandler.getClock(builder, module.getContext()); break;
