@@ -2,11 +2,11 @@ package com.ewyboy.barista;
 
 import com.ewyboy.barista.cleint.GameBar;
 import com.ewyboy.barista.cleint.Keybindings;
-import com.ewyboy.barista.config.Settings;
 import com.ewyboy.barista.json.InfoHandler;
 import com.ewyboy.barista.json.JsonHandler;
 import com.ewyboy.barista.module.ModuleHandler;
 import com.ewyboy.barista.util.Clockwork;
+import com.ewyboy.barista.util.ModLogger;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -35,7 +35,6 @@ public class Barista {
         ignoreServerOnly();
         JsonHandler.setup();
         InfoHandler.setup();
-        Settings.setup();
         FMLJavaModLoadingContext.get().getModEventBus().register(this);
     }
 
@@ -54,13 +53,25 @@ public class Barista {
 
     @SubscribeEvent
     public void clientRegister(FMLClientSetupEvent event) {
-        event.enqueueWork(() -> JsonHandler.barConfig.getModuleList().forEach(barModule -> {
-            if (Objects.equals(barModule.getName(), "icon")) {
-                if (barModule.isDisplay()) {
-                    ModuleHandler.getIcon(Minecraft.getInstance(), barModule.getContext());
+        Minecraft mc = event.getMinecraftSupplier().get();
+        StringBuilder builder = new StringBuilder();
+        event.enqueueWork(() -> JsonHandler.barConfig.getModuleList().forEach(module -> {
+            if (Objects.equals(module.getName(), "icon")) {
+                if (module.isDisplay()) {
+                    ModuleHandler.getIcon(Minecraft.getInstance(), module.getContext());
                 }
             }
-        }));
+            if (Objects.equals(module.getName(), "text")) {
+                if (module.isDisplay()) {
+                    ModuleHandler.getText(builder, module.getContext());
+                    ModLogger.info("Text: " + module.getContext());
+                }
+            }
+        }
+        )).thenRun(() -> {
+            builder.append("Starting up..");
+            mc.getWindow().setTitle(builder.toString());
+        });
         Keybindings.setup();
         MinecraftForge.EVENT_BUS.register(new GameBar());
     }

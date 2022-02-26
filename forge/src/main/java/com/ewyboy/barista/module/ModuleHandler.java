@@ -1,23 +1,26 @@
 package com.ewyboy.barista.module;
 
 import com.ewyboy.barista.Barista;
+import com.ewyboy.barista.util.Clockwork;
 import com.ewyboy.barista.util.RayTracer;
+import com.ewyboy.barista.util.Statinator;
 import com.ewyboy.barista.util.Translation;
-import net.minecraft.block.BlockState;
+import net.minecraft.block.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.network.play.NetworkPlayerInfo;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraftforge.fml.ModList;
 
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 import java.util.Objects;
 
 public class ModuleHandler {
 
+    private static final String x = ": ";
     private static final String separator = " | ";
 
     public static void getText(StringBuilder builder, String ctx) {
@@ -30,18 +33,18 @@ public class ModuleHandler {
     }
 
     public static void getMods(StringBuilder builder) {
-        builder.append("Mods: ").append(ModList.get().getMods().size()).append(separator);
+        builder.append(ModuleFormatter.formatTranslation(Translation.Bar.MODS)).append(x).append(ModList.get().getMods().size()).append(separator);
     }
 
     public static void getFps(Minecraft mc, StringBuilder builder) {
-        builder.append(ModuleFormatter.formatText(mc.fpsString.split("\\s+")[0], Translation.Display.FPS)).append(separator);
+        builder.append(ModuleFormatter.formatTranslation(mc.fpsString.split("\\s+")[0], Translation.Bar.FPS)).append(separator);
     }
 
     public static void getPing(Minecraft mc, StringBuilder builder) {
         NetworkPlayerInfo entry = Objects.requireNonNull(mc.player).connection.getPlayerInfo(mc.player.getUUID());
         if (entry != null) {
             if (entry.getLatency() != 0) {
-                builder.append(ModuleFormatter.formatText(String.valueOf(entry.getLatency()), Translation.Display.PING)).append(separator);
+                builder.append(ModuleFormatter.formatTranslation(String.valueOf(entry.getLatency()), Translation.Bar.PING)).append(separator);
             }
         }
     }
@@ -53,11 +56,11 @@ public class ModuleHandler {
 
         int difference = total - free;
 
-        builder.append(ModuleFormatter.formatText(
+        builder.append(ModuleFormatter.formatTranslation(
                 String.valueOf(difference * 100 / max),
                 String.valueOf(difference),
                 String.valueOf(max),
-                Translation.Display.MEMORY
+                Translation.Bar.MEMORY
         )).append(separator);
     }
 
@@ -69,19 +72,25 @@ public class ModuleHandler {
 
     public static void getChunk(Minecraft mc, StringBuilder builder) {
         if (mc.level != null && mc.player != null) {
-            builder.append("Chunk: ").append(mc.level.getChunk(mc.player.blockPosition()).getPos()).append(separator);
+            builder.append(ModuleFormatter.formatTranslation(Translation.Bar.CHUNK)).append(x).append(mc.level.getChunk(mc.player.blockPosition()).getPos()).append(separator);
+        }
+    }
+
+    public static void getWeather(Minecraft mc, StringBuilder builder) {
+        if (mc.level != null) {
+            builder.append(ModuleFormatter.formatTranslation(Translation.Bar.WEATHER)).append(x).append(ModuleFormatter.formatWeather(mc.level)).append(separator);
         }
     }
 
     public static void getBiome(Minecraft mc, StringBuilder builder) {
         if (mc.player != null) {
-            builder.append("Biome: ").append(Objects.requireNonNull(mc.player.clientLevel.getBiome(mc.player.blockPosition()).getRegistryName()).getPath().toUpperCase(Locale.ROOT)).append(separator);
+            builder.append(ModuleFormatter.formatTranslation(Translation.Bar.BIOME)).append(x).append(ModuleFormatter.formatBiome(mc.player.clientLevel.getBiome(mc.player.blockPosition()))).append(separator);
         }
     }
 
     public static void getDimension(Minecraft mc, StringBuilder builder) {
         if (mc.level != null) {
-            builder.append("Dim: ").append(mc.level.dimension().location().getPath().toUpperCase()).append(separator);
+            builder.append(ModuleFormatter.formatTranslation(Translation.Bar.DIMENSION)).append(x).append(ModuleFormatter.formatDimension(mc.level.dimension())).append(separator);
         }
     }
 
@@ -89,6 +98,13 @@ public class ModuleHandler {
         BlockState state = RayTracer.getStateFromRaytrace(mc);
         if (state != null) {
             builder.append(Objects.requireNonNull(state.getBlock().getName().getString())).append(separator);
+        }
+    }
+
+    public static void getProperty(Minecraft mc, StringBuilder builder) {
+        BlockState state = RayTracer.getStateFromRaytrace(mc);
+        if (state != null) {
+            Statinator.handleStates(state, builder, separator);
         }
     }
 
@@ -105,7 +121,7 @@ public class ModuleHandler {
             if (entity instanceof LivingEntity) {
                 float health = ((LivingEntity) entity).getHealth();
                 float maxHealth = ((LivingEntity) entity).getMaxHealth();
-                builder.append("Health: ").append(health).append(" / ").append(maxHealth).append(separator);
+                builder.append(ModuleFormatter.formatTranslation(Translation.Bar.HEALTH)).append(x).append(health).append(" / ").append(maxHealth).append(separator);
             }
         }
     }
@@ -122,15 +138,20 @@ public class ModuleHandler {
 
     public static void getDay(Minecraft mc, StringBuilder builder) {
         if (mc.level != null) {
-            builder.append("Day: ").append(mc.level.getDayTime() / 24000L).append(separator);
+            builder.append(ModuleFormatter.formatTranslation(Translation.Bar.DAY)).append(x).append(mc.level.getDayTime() / 24000L).append(separator);
+        }
+    }
+
+    public static void getTime(Minecraft mc, StringBuilder builder) {
+        if (mc.level != null) {
+            builder.append(Clockwork.getTimeOfDay(mc.level.getDayTime())).append(separator);
         }
     }
 
     public static void getFacing(Minecraft mc, StringBuilder builder) {
         if (mc.player != null) {
-            builder.append("Facing: ").append(mc.player.getDirection().toString().toUpperCase()).append(separator);
+            builder.append(ModuleFormatter.formatTranslation(Translation.Bar.FACING)).append(x).append(mc.player.getDirection().toString().toUpperCase()).append(separator);
         }
     }
-
 
 }

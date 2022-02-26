@@ -2,15 +2,15 @@
 <component>
   <configuration default="false" factoryName="Application" name="forge runServer" singleton="false" type="Application">
     <option name="MAIN_CLASS_NAME" value="net.minecraftforge.userdev.LaunchTesting"/>
-    <option name="VM_PARAMETERS" value="-XX:+IgnoreUnrecognizedVMOptions --add-exports=java.base/sun.security.util=ALL-UNNAMED --add-exports=jdk.naming.dns/com.sun.jndi.dns=java.naming --add-opens=java.base/java.util.jar=ALL-UNNAMED"/>
-    <option name="PROGRAM_PARAMETERS" value=""/>
+    <option name="VM_PARAMETERS" value="-Dnet.minecraftforge.gradle.GradleStart.srg.srg-mcp=C:\Users\Eivind\Documents\Dev\Modding\Barista\forge\build\createSrgToMcp\output.srg -Dmixin.env.remapRefMap=true -Dmixin.env.refMapRemappingFile=C:\Users\Eivind\Documents\Dev\Modding\Barista\forge\build\createSrgToMcp\output.srg -XX:+IgnoreUnrecognizedVMOptions --add-exports=java.base/sun.security.util=ALL-UNNAMED --add-exports=jdk.naming.dns/com.sun.jndi.dns=java.naming --add-opens=java.base/java.util.jar=ALL-UNNAMED"/>
+    <option name="PROGRAM_PARAMETERS" value="--mixin.config mixins.barista.json"/>
     <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$\run"/>
     <module name="forge.main"/>
     <envs>
       <env name="MOD_CLASSES" value="barista%%$PROJECT_DIR$\forge\build\resources\main;barista%%$PROJECT_DIR$\forge\build\classes\java\main"/>
       <env name="MCP_MAPPINGS" value="official_1.16.5"/>
       <env name="MCP_VERSION" value="20210115.111550"/>
-      <env name="FORGE_VERSION" value="36.2.20"/>
+      <env name="FORGE_VERSION" value="36.2.29"/>
       <env name="FORGE_GROUP" value="net.minecraftforge"/>
       <env name="target" value="fmluserdevserver"/>
       <env name="MC_VERSION" value="1.16.5"/>

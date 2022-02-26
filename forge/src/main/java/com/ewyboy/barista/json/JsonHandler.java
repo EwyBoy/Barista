@@ -27,18 +27,21 @@ public class JsonHandler {
         modules.add(new BarModule("clock", true, "HH:mm:ss"));
         modules.add(new BarModule("session", true));
         modules.add(new BarModule("day", true));
+        modules.add(new BarModule("time", true));
+        modules.add(new BarModule("weather", true));
 
         modules.add(new BarModule("fps", true));
         modules.add(new BarModule("ping", true));
         modules.add(new BarModule("memory", true));
 
+        modules.add(new BarModule("dimension", true));
         modules.add(new BarModule("biome", true));
         modules.add(new BarModule("position", true));
         modules.add(new BarModule("chunk", true));
-        modules.add(new BarModule("dimension", true));
 
         modules.add(new BarModule("facing", true));
         modules.add(new BarModule("looking_at", true));
+        modules.add(new BarModule("property", true));
         modules.add(new BarModule("target", true));
         modules.add(new BarModule("target_health", true));
     }
@@ -56,8 +59,8 @@ public class JsonHandler {
     }
 
     public static void reload() {
-        writeJson(JSON_FILE);
         readJson(JSON_FILE);
+        ModLogger.info("Barista JSON Reloaded...");
     }
 
     public static boolean hasModule(BarModule barModule) {
