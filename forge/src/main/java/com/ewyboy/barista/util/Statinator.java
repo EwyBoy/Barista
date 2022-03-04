@@ -43,13 +43,13 @@ public class Statinator {
             builder.append("State: ").append(state.getValue(BlockStateProperties.LIT) ? "Lit" : "Unlit").append(separator);
 
         if (state.hasProperty(BlockStateProperties.OPEN))
-            builder.append("State: ").append(state.getValue(BlockStateProperties.LIT) ? "Open" : "Closed").append(separator);
+            builder.append("State: ").append(state.getValue(BlockStateProperties.OPEN) ? "Open" : "Closed").append(separator);
 
         if (state.hasProperty(BlockStateProperties.POWERED))
             builder.append("State: ").append(state.getValue(BlockStateProperties.POWERED) ? "Active" : "Inactive").append(separator);
 
         if (state.hasProperty(BlockStateProperties.ENABLED))
-            builder.append("State: ").append(state.getValue(BlockStateProperties.LIT) ? "Enabled" : "Disabled").append(separator);
+            builder.append("State: ").append(state.getValue(BlockStateProperties.ENABLED) ? "Enabled" : "Disabled").append(separator);
     }
 
 }

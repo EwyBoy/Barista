@@ -11,6 +11,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 public class GameBar {
 
+    private static boolean isGui = false;
     private final Minecraft mc = Minecraft.getInstance();
 
     public void renderOverlay() {
