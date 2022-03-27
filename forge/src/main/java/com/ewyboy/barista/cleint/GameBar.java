@@ -3,20 +3,23 @@ package com.ewyboy.barista.cleint;
 import com.ewyboy.barista.json.JsonHandler;
 import com.ewyboy.barista.json.objects.BarModule;
 import com.ewyboy.barista.module.ModuleHandler;
+import com.ewyboy.barista.util.ModLogger;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.*;
+import net.minecraftforge.client.ForgeHooksClient;
 import net.minecraftforge.client.event.GuiScreenEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 public class GameBar {
 
-    private static boolean isGui = false;
     private final Minecraft mc = Minecraft.getInstance();
+
+    private boolean isGui = false;
 
     public void renderOverlay() {
         if(mc.isPaused()) return;
-        mc.getWindow().setTitle(buildBar(mc));
+        if(!isGui) mc.getWindow().setTitle(buildBar(mc));
     }
 
     @SubscribeEvent
@@ -31,10 +34,9 @@ public class GameBar {
         if (event.getGui() instanceof WorldLoadProgressScreen) {
             WorldLoadProgressScreen worldLoadProgressScreen = (WorldLoadProgressScreen) event.getGui();
             mc.getWindow().setTitle(buildMainMenuBar(mc, "World Loading: " + worldLoadProgressScreen.progressListener.getProgress() + "%"));
-        } else {
-            if (!event.getGui().getTitle().getString().isEmpty()) {
-                mc.getWindow().setTitle(buildMainMenuBar(mc, event.getGui().getTitle().getString()));
-            }
+        } else if (! event.getGui().getTitle().getString().isEmpty()) {
+            mc.getWindow().setTitle(buildMainMenuBar(mc, event.getGui().getTitle().getString()));
+            isGui = true;
         }
     }
 
