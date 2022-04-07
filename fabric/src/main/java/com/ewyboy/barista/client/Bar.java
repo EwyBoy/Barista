@@ -5,7 +5,7 @@ import com.ewyboy.barista.json.objects.BarModule;
 import com.ewyboy.barista.module.ModuleHandler;
 import net.minecraft.client.Minecraft;
 
-public class GameBar {
+public class Bar {
 
     public static String buildMainMenuBar(Minecraft mc, String where) {
         StringBuilder builder = new StringBuilder();

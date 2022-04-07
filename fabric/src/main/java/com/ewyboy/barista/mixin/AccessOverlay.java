@@ -1,6 +1,6 @@
 package com.ewyboy.barista.mixin;
 
-import com.ewyboy.barista.client.GameBar;
+import com.ewyboy.barista.client.Bar;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
@@ -25,7 +25,7 @@ public class AccessOverlay {
 
     public void renderOverlay(Minecraft mc) {
         if(mc.isPaused()) return;
-        mc.getWindow().setTitle(GameBar.buildBar(mc));
+        mc.getWindow().setTitle(Bar.buildBar(mc));
     }
 
 
