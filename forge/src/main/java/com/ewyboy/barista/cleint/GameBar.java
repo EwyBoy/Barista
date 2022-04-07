@@ -15,11 +15,9 @@ public class GameBar {
 
     private final Minecraft mc = Minecraft.getInstance();
 
-    private boolean isGui = false;
-
     public void renderOverlay() {
         if(mc.isPaused()) return;
-        if(!isGui) mc.getWindow().setTitle(buildBar(mc));
+        mc.getWindow().setTitle(buildBar(mc));
     }
 
     @SubscribeEvent
@@ -34,9 +32,8 @@ public class GameBar {
         if (event.getGui() instanceof WorldLoadProgressScreen) {
             WorldLoadProgressScreen worldLoadProgressScreen = (WorldLoadProgressScreen) event.getGui();
             mc.getWindow().setTitle(buildMainMenuBar(mc, "World Loading: " + worldLoadProgressScreen.progressListener.getProgress() + "%"));
-        } else if (! event.getGui().getTitle().getString().isEmpty()) {
+        } else if (!event.getGui().getTitle().getString().isEmpty()) {
             mc.getWindow().setTitle(buildMainMenuBar(mc, event.getGui().getTitle().getString()));
-            isGui = true;
         }
     }
 

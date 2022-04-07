@@ -10,9 +10,6 @@
         <module name="Barista.forge.main" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel target="1.8">
-      <module name="Barista.fabric.main" target="11" />
-      <module name="Barista.fabric.test" target="11" />
-    </bytecodeTargetLevel>
+    <bytecodeTargetLevel target="1.8" />
   </component>
 </project>

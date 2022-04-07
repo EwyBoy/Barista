@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "id": "barista",
+  "version": "${version}",
+
+  "name": "FPS Monitor",
+  "description": "Displays information to the title bar",
+  "authors": [
+    "Ewy"
+  ],
+  "contact": {
+    "homepage": "https://www.curseforge.com/minecraft/mc-mods/barista",
+    "sources": "https://github.com/EwyBoy/Barista",
+    "issues": "https://github.com/EwyBoy/Barista/issues"
+  },
+
+  "license": "MIT",
+  "icon": "assets/barista/logo.png",
+
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "com.ewyboy.barista.Barista"
+    ]
+  },
+  "mixins": [
+    "mixins.barista.json"
+  ],
+
+  "depends": {
+    "fabricloader": ">=0.7.4",
+    "minecraft": "1.16.x"
+  }
+}
