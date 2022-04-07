@@ -46,8 +46,8 @@ public class ModuleFormatter {
         return textComponent.getString();
     }
 
-    public static String formatBiome(Biome biome) {
-        String name = Objects.requireNonNull(biome.toString()).replace('_', ' ');
+    public static String formatBiome(String biome) {
+        String name = biome.split(":")[1].replace('_', ' ');
         return WordUtils.capitalize(name);
     }
 

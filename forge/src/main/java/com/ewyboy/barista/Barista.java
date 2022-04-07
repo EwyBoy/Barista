@@ -56,19 +56,11 @@ public class Barista {
         Minecraft mc = event.getMinecraftSupplier().get();
         StringBuilder builder = new StringBuilder();
         event.enqueueWork(() -> JsonHandler.barConfig.getModuleList().forEach(module -> {
-            if (Objects.equals(module.getName(), "icon")) {
-                if (module.isDisplay()) {
-                    ModuleHandler.getIcon(Minecraft.getInstance(), module.getContext());
-                }
-            }
-            if (Objects.equals(module.getName(), "text")) {
-                if (module.isDisplay()) {
-                    ModuleHandler.getText(builder, module.getContext());
-                    ModLogger.info("Text: " + module.getContext());
-                }
-            }
-        }
-        )).thenRun(() -> {
+            if (Objects.equals(module.getName(), "icon") && module.isDisplay())
+                ModuleHandler.getIcon(Minecraft.getInstance(), module.getContext());
+            if (Objects.equals(module.getName(), "text") && module.isDisplay())
+                ModuleHandler.getText(builder, module.getContext());
+        })).thenRun(() -> {
             builder.append("Starting up..");
             mc.getWindow().setTitle(builder.toString());
         });

@@ -75,6 +75,10 @@ jar {
     }
 }
 
+loom {
+    accessWidener = file("src/main/resources/barista.accesswidener")
+}
+
 curseforge {
     if (project.hasProperty('CF_API_KEY')){
         apiKey = project.getProperty('CF_API_KEY')

@@ -16,6 +16,7 @@
 
   "license": "MIT",
   "icon": "assets/barista/logo.png",
+  "accessWidener" : "barista.accesswidener",
 
   "environment": "client",
   "entrypoints": {
