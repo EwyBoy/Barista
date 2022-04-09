@@ -29,11 +29,14 @@ public class InfoHandler {
         }
     }
 
+    // TODO: Write information file
     private static void writeInfoFile(FileWriter writer) throws IOException {
-        writer.write("Barista - Information");
+        writer.write("Hello World!");
+        writer.write("----------------");
         writer.write("\n");
-
-        writer.write("Edit the spawn.json file to add or remove entries from the grass loot table.");
+        writer.write("Barista is a mod that allows you to create your own custom coffee!");
+        writer.flush();
+        writer.close();
     }
 
 }

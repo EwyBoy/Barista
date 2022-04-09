@@ -1,11 +1,11 @@
 ## TODO
 * [x] JSON Modules 
 * [x] Display based on JSON order
+* [x] Reloadable
+* [x] Move icon from resource into icon folder
+* [ ] Client Sided commands
 * [ ] RayTrace fluids
 * [ ] Check empty module String
-* [ ] Move icon from resource into icon folder
-* [ ] Client Sided commands
-* [ ] Reloadable 
 * [ ] API
 
 ## Modules

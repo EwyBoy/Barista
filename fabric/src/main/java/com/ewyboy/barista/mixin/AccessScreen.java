@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import static com.ewyboy.barista.client.Bar.buildMainMenuBar;
+import static com.ewyboy.barista.client.GameBar.buildMainMenuBar;
 
 @Mixin(Screen.class)
 public class AccessScreen {

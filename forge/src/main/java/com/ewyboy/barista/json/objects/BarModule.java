@@ -45,8 +45,8 @@ public class BarModule {
     @Override
     public String toString() {
         return "ModuleObject{" +
-                "name='" + name + '\'' +
-                ", display=" + display +
-                '}';
+            "name='" + name + '\'' +
+            ", display=" + display +
+        '}';
     }
 }
