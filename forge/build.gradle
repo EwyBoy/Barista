@@ -23,7 +23,7 @@ version = "${MC_VERSION}-${VERSION}"
 group = "com.ewyboy.${MODID}"
 archivesBaseName = MODNAME
 
-java.toolchain.languageVersion = JavaLanguageVersion.of(8)
+java.toolchain.languageVersion = JavaLanguageVersion.of(16)
 
 minecraft {
 
@@ -77,7 +77,6 @@ sourceSets.main.resources { srcDir 'src/generated/resources' }
 dependencies {
     minecraft "net.minecraftforge:forge:${MC_VERSION}-${FORGE_VERSION}"
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
-    implementation fg.deobf("curse.maven:configured-457570:${CONFIGURED}")
 }
 
 mixin {
@@ -113,11 +112,8 @@ curseforge {
         releaseType = "${RELEASE_TYPE}"
         addGameVersion "${MOD_LOADER}"
         addGameVersion "${JAVA_VERSION}"
-        addGameVersion '1.16.5'
-        addGameVersion '1.16.4'
-        addGameVersion '1.16.3'
-        addGameVersion '1.16.2'
-        addGameVersion '1.16.1'
+        addGameVersion '1.17.1'
+        addGameVersion '1.17'
         mainArtifact(jar) {
             displayName = "${MODNAME}-${MC_VERSION_GENERAL}-${VERSION}-${MOD_LOADER}.jar"
         }

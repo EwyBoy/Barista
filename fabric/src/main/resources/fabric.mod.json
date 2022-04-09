@@ -4,7 +4,7 @@
   "version": "${version}",
 
   "name": "FPS Monitor",
-  "description": "Displays information to the title bar",
+  "description": "Displays information in the game window bar",
   "authors": [
     "Ewy"
   ],
@@ -30,6 +30,6 @@
 
   "depends": {
     "fabricloader": ">=0.7.4",
-    "minecraft": "1.16.x"
+    "minecraft": "1.17.x"
   }
 }

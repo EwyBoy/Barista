@@ -1,11 +1,11 @@
 plugins {
-    id 'fabric-loom' version '0.7-SNAPSHOT'
+    id 'fabric-loom' version '0.10-SNAPSHOT'
     id 'com.matthewprenger.cursegradle' version '1.4.0'
     id 'maven-publish'
 }
 
-sourceCompatibility = JavaVersion.VERSION_1_8
-targetCompatibility = JavaVersion.VERSION_1_8
+sourceCompatibility = JavaVersion.VERSION_16
+targetCompatibility = JavaVersion.VERSION_16
 
 archivesBaseName = project.MOD_NAME
 version = project.MC_VERSION_GENERAL + "-" + project.VERSION + "-" + project.MOD_LOADER
@@ -26,13 +26,6 @@ dependencies {
 
     includeFabricApiModule "fabric-key-binding-api-v1"
     includeFabricApiModule "fabric-lifecycle-events-v1"
-
-    modApi("me.shedaniel.cloth:cloth-config-fabric:${project.CLOTH_CONFIG_VERSION}") {
-        exclude(group: "net.fabricmc.fabric-api")
-    }
-    include("me.shedaniel.cloth:cloth-config-fabric:${project.CLOTH_CONFIG_VERSION}") {
-        exclude(group: "net.fabricmc.fabric-api")
-    }
 
     modImplementation "com.terraformersmc:modmenu:${project.MODMENU_VERSION}"
 
@@ -58,7 +51,7 @@ processResources {
 tasks.withType(JavaCompile).configureEach {
 
     it.options.encoding = "UTF-8"
-    def targetVersion = 8
+    def targetVersion = 16
 
     if (JavaVersion.current().isJava9Compatible()) {
         it.options.release = targetVersion
@@ -76,7 +69,7 @@ jar {
 }
 
 loom {
-    accessWidener = file("src/main/resources/barista.accesswidener")
+    accessWidenerPath = file("src/main/resources/barista.accesswidener")
 }
 
 curseforge {
@@ -90,16 +83,10 @@ curseforge {
         releaseType = "${RELEASE_TYPE}"
         addGameVersion "${MOD_LOADER}"
         addGameVersion "${JAVA_VERSION}"
-        addGameVersion '1.16.5'
-        addGameVersion '1.16.4'
-        addGameVersion '1.16.3'
-        addGameVersion '1.16.2'
-        addGameVersion '1.16.1'
+        addGameVersion '1.17.1'
+        addGameVersion '1.17'
         mainArtifact(remapJar) {
             displayName = "${MOD_NAME}-${MC_VERSION_GENERAL}-${VERSION}-${MOD_LOADER}.jar"
-            relations {
-                requiredDependency 'cloth-config'
-            }
         }
     }
     options {

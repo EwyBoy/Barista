@@ -5,12 +5,11 @@ import com.ewyboy.barista.util.Clockwork;
 import com.ewyboy.barista.util.RayTracer;
 import com.ewyboy.barista.util.Statinator;
 import com.ewyboy.barista.util.Translation;
-import net.minecraft.block.*;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.network.play.NetworkPlayerInfo;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.state.properties.BlockStateProperties;
+import net.minecraft.client.multiplayer.PlayerInfo;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.fml.ModList;
 
 import java.io.InputStream;
@@ -41,7 +40,7 @@ public class ModuleHandler {
     }
 
     public static void getPing(Minecraft mc, StringBuilder builder) {
-        NetworkPlayerInfo entry = Objects.requireNonNull(mc.player).connection.getPlayerInfo(mc.player.getUUID());
+        PlayerInfo entry = Objects.requireNonNull(mc.player).connection.getPlayerInfo(mc.player.getUUID());
         if (entry != null) {
             if (entry.getLatency() != 0) {
                 builder.append(ModuleFormatter.formatTranslation(String.valueOf(entry.getLatency()), Translation.Bar.PING)).append(separator);

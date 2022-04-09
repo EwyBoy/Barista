@@ -5,7 +5,7 @@ import com.ewyboy.barista.json.objects.BarModule;
 import com.ewyboy.barista.util.ModLogger;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import net.minecraft.util.SharedConstants;
+import net.minecraft.SharedConstants;
 import net.minecraftforge.fml.loading.FMLPaths;
 
 import java.io.*;

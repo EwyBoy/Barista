@@ -3,10 +3,8 @@ package com.ewyboy.barista.cleint;
 import com.ewyboy.barista.json.JsonHandler;
 import com.ewyboy.barista.json.objects.BarModule;
 import com.ewyboy.barista.module.ModuleHandler;
-import com.ewyboy.barista.util.ModLogger;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screen.*;
-import net.minecraftforge.client.ForgeHooksClient;
+import net.minecraft.client.gui.screens.LevelLoadingScreen;
 import net.minecraftforge.client.event.GuiScreenEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -29,9 +27,9 @@ public class GameBar {
 
     @SubscribeEvent
     public void onScreenDraw(GuiScreenEvent.DrawScreenEvent.Post event) {
-        if (event.getGui() instanceof WorldLoadProgressScreen) {
-            WorldLoadProgressScreen worldLoadProgressScreen = (WorldLoadProgressScreen) event.getGui();
-            mc.getWindow().setTitle(buildMainMenuBar(mc, "World Loading: " + worldLoadProgressScreen.progressListener.getProgress() + "%"));
+        if (event.getGui() instanceof LevelLoadingScreen) {
+            LevelLoadingScreen loadingScreen = (LevelLoadingScreen) event.getGui();
+            mc.getWindow().setTitle(buildMainMenuBar(mc, "World Loading: " + loadingScreen.progressListener.getProgress() + "%"));
         } else if (!event.getGui().getTitle().getString().isEmpty()) {
             mc.getWindow().setTitle(buildMainMenuBar(mc, event.getGui().getTitle().getString()));
         }

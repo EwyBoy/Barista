@@ -19,9 +19,8 @@ public class AccessLoading {
         Minecraft mc = Minecraft.getInstance();
         Screen gui = mc.screen;
 
-        if (gui instanceof LevelLoadingScreen) {
-            LevelLoadingScreen worldLoadProgressScreen = (LevelLoadingScreen) gui;
-            mc.getWindow().setTitle(buildMainMenuBar(mc, "World Loading: " + worldLoadProgressScreen.progressListener.getProgress() + "%"));
+        if (gui instanceof LevelLoadingScreen levelLoadingScreen) {
+            mc.getWindow().setTitle(buildMainMenuBar(mc, "World Loading: " + levelLoadingScreen.progressListener.getProgress() + "%"));
         }
 
     }
