@@ -86,7 +86,7 @@ public class ModuleHandler {
 
     public static void getBiome(Minecraft mc, StringBuilder builder) {
         if (mc.player != null) {
-            builder.append(ModuleFormatter.formatTranslation(Translation.Bar.BIOME)).append(x).append(ModuleFormatter.formatBiome(Objects.requireNonNull(Objects.requireNonNull(mc.level).registryAccess().registryOrThrow(Registry.BIOME_REGISTRY).getKey(mc.level.getBiome(Objects.requireNonNull(mc.getCameraEntity()).blockPosition()))).toString())).append(separator);
+            builder.append(ModuleFormatter.formatTranslation(Translation.Bar.BIOME)).append(x).append(ModuleFormatter.formatBiome(Objects.requireNonNull(Objects.requireNonNull(mc.level).registryAccess().registryOrThrow(Registry.BIOME_REGISTRY).getKey(mc.level.getBiome(Objects.requireNonNull(mc.getCameraEntity()).blockPosition()).value())).toString())).append(separator);
         }
     }
 

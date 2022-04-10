@@ -2,6 +2,7 @@ package com.ewyboy.barista.module;
 
 import com.ewyboy.barista.util.Translation;
 import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.core.Holder;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.Level;
@@ -46,8 +47,8 @@ public class ModuleFormatter {
         return textComponent.getString();
     }
 
-    public static String formatBiome(Biome biome) {
-        String name = Objects.requireNonNull(biome.getRegistryName()).getPath().replace('_', ' ');
+    public static String formatBiome(Holder<Biome> biome) {
+        String name = Objects.requireNonNull(biome.value().getRegistryName()).getPath().replace('_', ' ');
         return WordUtils.capitalize(name);
     }
 

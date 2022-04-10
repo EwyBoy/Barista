@@ -27,7 +27,7 @@ dependencies {
     includeFabricApiModule "fabric-key-binding-api-v1"
     includeFabricApiModule "fabric-lifecycle-events-v1"
 
-    //modImplementation "com.terraformersmc:modmenu:${project.MODMENU_VERSION}"
+    modImplementation "com.terraformersmc:modmenu:${project.MODMENU_VERSION}"
 
     /*modRuntimeOnly ("supercoder79:databreaker:${project.DATABREAKER_VERSION}") {
         exclude module: "fabric-loader"
@@ -83,8 +83,7 @@ curseforge {
         releaseType = "${RELEASE_TYPE}"
         addGameVersion "${MOD_LOADER}"
         addGameVersion "${JAVA_VERSION}"
-        addGameVersion '1.18.1'
-        addGameVersion '1.18'
+        addGameVersion '1.18.2'
         mainArtifact(remapJar) {
             displayName = "${MOD_NAME}-${MC_VERSION_GENERAL}-${VERSION}-${MOD_LOADER}.jar"
         }
