@@ -1,11 +1,11 @@
 plugins {
-    id 'fabric-loom' version '0.10-SNAPSHOT'
+    id 'fabric-loom' version '0.12-SNAPSHOT'
     id 'com.matthewprenger.cursegradle' version '1.4.0'
     id 'maven-publish'
 }
 
-sourceCompatibility = JavaVersion.VERSION_16
-targetCompatibility = JavaVersion.VERSION_16
+sourceCompatibility = JavaVersion.VERSION_17
+targetCompatibility = JavaVersion.VERSION_17
 
 archivesBaseName = project.MOD_NAME
 version = project.MC_VERSION_GENERAL + "-" + project.VERSION + "-" + project.MOD_LOADER
@@ -29,7 +29,7 @@ dependencies {
 
     modImplementation "com.terraformersmc:modmenu:${project.MODMENU_VERSION}"
 
-    modRuntime ("supercoder79:databreaker:${project.DATABREAKER_VERSION}") {
+    modRuntimeOnly ("supercoder79:databreaker:${project.DATABREAKER_VERSION}") {
         exclude module: "fabric-loader"
     }
 }
@@ -51,7 +51,7 @@ processResources {
 tasks.withType(JavaCompile).configureEach {
 
     it.options.encoding = "UTF-8"
-    def targetVersion = 16
+    def targetVersion = 17
 
     if (JavaVersion.current().isJava9Compatible()) {
         it.options.release = targetVersion
@@ -83,8 +83,9 @@ curseforge {
         releaseType = "${RELEASE_TYPE}"
         addGameVersion "${MOD_LOADER}"
         addGameVersion "${JAVA_VERSION}"
-        addGameVersion '1.17.1'
-        addGameVersion '1.17'
+        addGameVersion '1.18.2'
+        addGameVersion '1.18.1'
+        addGameVersion '1.18'
         mainArtifact(remapJar) {
             displayName = "${MOD_NAME}-${MC_VERSION_GENERAL}-${VERSION}-${MOD_LOADER}.jar"
         }
