@@ -5,8 +5,8 @@ import com.ewyboy.barista.json.objects.BarModule;
 import com.ewyboy.barista.module.ModuleHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.LevelLoadingScreen;
-import net.minecraftforge.client.event.GuiScreenEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
+import net.minecraftforge.client.event.ScreenEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 public class GameBar {
@@ -26,12 +26,11 @@ public class GameBar {
     }
 
     @SubscribeEvent
-    public void onScreenDraw(GuiScreenEvent.DrawScreenEvent.Post event) {
-        if (event.getGui() instanceof LevelLoadingScreen) {
-            LevelLoadingScreen loadingScreen = (LevelLoadingScreen) event.getGui();
+    public void onScreenDraw(ScreenEvent.DrawScreenEvent.Post event) {
+        if (event.getScreen() instanceof LevelLoadingScreen loadingScreen) {
             mc.getWindow().setTitle(buildMainMenuBar(mc, "World Loading: " + loadingScreen.progressListener.getProgress() + "%"));
-        } else if (!event.getGui().getTitle().getString().isEmpty()) {
-            mc.getWindow().setTitle(buildMainMenuBar(mc, event.getGui().getTitle().getString()));
+        } else if (!event.getScreen().getTitle().getString().isEmpty()) {
+            mc.getWindow().setTitle(buildMainMenuBar(mc, event.getScreen().getTitle().getString()));
         }
     }
 
@@ -40,12 +39,12 @@ public class GameBar {
         for (BarModule module : JsonHandler.barConfig.getModuleList()) {
             if (module.isDisplay()) {
                 switch (module.getName()) {
-                    case "text": ModuleHandler.getText(builder, module.getContext()); break;
-                    case "mods": ModuleHandler.getMods(builder); break;
-                    case "clock": ModuleHandler.getClock(builder, module.getContext()); break;
-                    case "session": ModuleHandler.getSession(builder); break;
-                    case "fps": ModuleHandler.getFps(mc, builder); break;
-                    case "memory": ModuleHandler.getMemory(builder); break;
+                    case "text" -> ModuleHandler.getText(builder, module.getContext());
+                    case "mods" -> ModuleHandler.getMods(builder);
+                    case "clock" -> ModuleHandler.getClock(builder, module.getContext());
+                    case "session" -> ModuleHandler.getSession(builder);
+                    case "fps" -> ModuleHandler.getFps(mc, builder);
+                    case "memory" -> ModuleHandler.getMemory(builder);
                 }
             }
         }
@@ -58,25 +57,25 @@ public class GameBar {
         for (BarModule module : JsonHandler.barConfig.getModuleList()) {
             if (module.isDisplay()) {
                 switch (module.getName()) {
-                    case "text": ModuleHandler.getText(builder, module.getContext()); break;
-                    case "mods": ModuleHandler.getMods(builder); break;
-                    case "clock": ModuleHandler.getClock(builder, module.getContext()); break;
-                    case "session": ModuleHandler.getSession(builder); break;
-                    case "day": ModuleHandler.getDay(mc, builder); break;
-                    case "time": ModuleHandler.getTime(mc, builder); break;
-                    case "fps": ModuleHandler.getFps(mc, builder); break;
-                    case "ping": ModuleHandler.getPing(mc, builder); break;
-                    case "memory": ModuleHandler.getMemory(builder); break;
-                    case "biome": ModuleHandler.getBiome(mc, builder); break;
-                    case "weather": ModuleHandler.getWeather(mc, builder); break;
-                    case "position": ModuleHandler.getPosition(mc, builder); break;
-                    case "chunk": ModuleHandler.getChunk(mc, builder); break;
-                    case "dimension": ModuleHandler.getDimension(mc, builder); break;
-                    case "facing": ModuleHandler.getFacing(mc, builder); break;
-                    case "looking_at": ModuleHandler.getLookingAt(mc, builder); break;
-                    case "property": ModuleHandler.getProperty(mc, builder); break;
-                    case "target": ModuleHandler.getTarget(mc, builder); break;
-                    case "target_health": ModuleHandler.getTargetHealth(mc, builder); break;
+                    case "text" -> ModuleHandler.getText(builder, module.getContext());
+                    case "mods" -> ModuleHandler.getMods(builder);
+                    case "clock" -> ModuleHandler.getClock(builder, module.getContext());
+                    case "session" -> ModuleHandler.getSession(builder);
+                    case "day" -> ModuleHandler.getDay(mc, builder);
+                    case "time" -> ModuleHandler.getTime(mc, builder);
+                    case "fps" -> ModuleHandler.getFps(mc, builder);
+                    case "ping" -> ModuleHandler.getPing(mc, builder);
+                    case "memory" -> ModuleHandler.getMemory(builder);
+                    case "biome" -> ModuleHandler.getBiome(mc, builder);
+                    case "weather" -> ModuleHandler.getWeather(mc, builder);
+                    case "position" -> ModuleHandler.getPosition(mc, builder);
+                    case "chunk" -> ModuleHandler.getChunk(mc, builder);
+                    case "dimension" -> ModuleHandler.getDimension(mc, builder);
+                    case "facing" -> ModuleHandler.getFacing(mc, builder);
+                    case "looking_at" -> ModuleHandler.getLookingAt(mc, builder);
+                    case "property" -> ModuleHandler.getProperty(mc, builder);
+                    case "target" -> ModuleHandler.getTarget(mc, builder);
+                    case "target_health" -> ModuleHandler.getTargetHealth(mc, builder);
                 }
             }
         }

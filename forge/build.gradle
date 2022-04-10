@@ -23,7 +23,7 @@ version = "${MC_VERSION}-${VERSION}"
 group = "com.ewyboy.${MODID}"
 archivesBaseName = MODNAME
 
-java.toolchain.languageVersion = JavaLanguageVersion.of(16)
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
 minecraft {
 
@@ -112,7 +112,6 @@ curseforge {
         releaseType = "${RELEASE_TYPE}"
         addGameVersion "${MOD_LOADER}"
         addGameVersion "${JAVA_VERSION}"
-        addGameVersion '1.18.2'
         addGameVersion '1.18.1'
         addGameVersion '1.18'
         mainArtifact(jar) {

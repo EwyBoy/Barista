@@ -4,17 +4,17 @@
     <facet type="minecraft" name="Minecraft">
       <configuration>
         <autoDetectTypes>
-          <platformType>MCP</platformType>
-          <platformType>MIXIN</platformType>
           <platformType>FORGE</platformType>
+          <platformType>MIXIN</platformType>
+          <platformType>MCP</platformType>
         </autoDetectTypes>
       </configuration>
     </facet>
   </component>
   <component name="McpModuleSettings">
     <option name="mappingFile" value="C:\Users\Eivind\Documents\Dev\Modding\Barista\forge\build\createMcpToSrg\output.tsrg" />
-    <option name="mcpVersion" value="official_1.17.1" />
-    <option name="minecraftVersion" value="1.17.1" />
+    <option name="mcpVersion" value="official_1.18.1" />
+    <option name="minecraftVersion" value="1.18.1" />
     <option name="srgType" value="TSRG" />
   </component>
 </module>

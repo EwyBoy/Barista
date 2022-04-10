@@ -8,6 +8,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import java.util.Objects;
+
 import static com.ewyboy.barista.client.GameBar.buildMainMenuBar;
 
 @Mixin(Screen.class)
@@ -15,12 +17,11 @@ public class AccessScreen {
 
     @Inject(at = @At("TAIL"), method = "render")
     public void init(PoseStack poseStack, int mouseX, int mouseY, float partialTicks, CallbackInfo info) {
-
         Minecraft mc = Minecraft.getInstance();
-        Screen gui = mc.screen;
+        Screen screen = mc.screen;
 
-        if (!gui.getTitle().getString().isEmpty()) {
-            mc.getWindow().setTitle(buildMainMenuBar(mc, gui.getTitle().getString()));
+        if (!Objects.requireNonNull(screen).getTitle().getString().isEmpty()) {
+            mc.getWindow().setTitle(buildMainMenuBar(mc, screen.getTitle().getString()));
         }
     }
 

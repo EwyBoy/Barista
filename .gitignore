@@ -5,6 +5,7 @@ bin
 .metadata
 .classpath
 .project
+.hprof
 
 # idea
 out
@@ -20,3 +21,4 @@ build
 # other
 eclipse
 run
+java_pid16536.hprof
