@@ -27,11 +27,8 @@ dependencies {
     includeFabricApiModule "fabric-key-binding-api-v1"
     includeFabricApiModule "fabric-lifecycle-events-v1"
 
-    modImplementation "com.terraformersmc:modmenu:${project.MODMENU_VERSION}"
+    //modImplementation "com.terraformersmc:modmenu:${project.MODMENU_VERSION}"
 
-    modRuntime ("supercoder79:databreaker:${project.DATABREAKER_VERSION}") {
-        exclude module: "fabric-loader"
-    }
 }
 
 def includeFabricApiModule(String moduleName) {
@@ -79,7 +76,7 @@ curseforge {
     project {
         id = "${PROJECT_ID}"
         changelogType = 'markdown'
-        changelog = file('CHANGELOG.md')
+        changelog = file('../CHANGELOG.md')
         releaseType = "${RELEASE_TYPE}"
         addGameVersion "${MOD_LOADER}"
         addGameVersion "${JAVA_VERSION}"
