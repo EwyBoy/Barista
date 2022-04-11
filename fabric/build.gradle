@@ -86,7 +86,7 @@ curseforge {
     project {
         id = "${PROJECT_ID}"
         changelogType = 'markdown'
-        changelog = file('CHANGELOG.md')
+        changelog = file('../CHANGELOG.md')
         releaseType = "${RELEASE_TYPE}"
         addGameVersion "${MOD_LOADER}"
         addGameVersion "${JAVA_VERSION}"
@@ -97,9 +97,6 @@ curseforge {
         addGameVersion '1.16.1'
         mainArtifact(remapJar) {
             displayName = "${MOD_NAME}-${MC_VERSION_GENERAL}-${VERSION}-${MOD_LOADER}.jar"
-            relations {
-                requiredDependency 'cloth-config'
-            }
         }
     }
     options {
