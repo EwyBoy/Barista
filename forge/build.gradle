@@ -108,7 +108,7 @@ curseforge {
     project {
         id = "${PROJECT_ID}"
         changelogType = 'markdown'
-        changelog = file('CHANGELOG.md')
+        changelog = file('../CHANGELOG.md')
         releaseType = "${RELEASE_TYPE}"
         addGameVersion "${MOD_LOADER}"
         addGameVersion "${JAVA_VERSION}"

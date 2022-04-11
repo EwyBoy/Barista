@@ -1,4 +1,6 @@
 {
+  "barista.key.reload": "Reload",
+  
   "barista.bar.fps": "FPS: %s",
   "barista.bar.ping": "Ping: %s",
   "barista.bar.memory": "Mem: %s%% %s/%sMB",
