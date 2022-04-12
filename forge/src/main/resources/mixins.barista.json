@@ -3,6 +3,7 @@
   "minVersion": "0.8",
   "package": "com.ewyboy.barista.mixin",
   "compatibilityLevel": "JAVA_8",
+  "refmap": "mixins.barista.refmap.json",
   "mixins": [
   ],
   "client": [

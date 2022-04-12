@@ -1,12 +1,10 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="forge runClient" type="Application" factoryName="Application" singleton="false">
-    <option name="ALTERNATIVE_JRE_PATH" value="temurin-1.8" />
-    <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
     <envs>
       <env name="MOD_CLASSES" value="barista%%$PROJECT_DIR$/../Barista\forge\build\resources\main;barista%%$PROJECT_DIR$/../Barista\forge\build\classes\java\main" />
       <env name="MCP_MAPPINGS" value="official_1.16.5" />
       <env name="MCP_VERSION" value="20210115.111550" />
-      <env name="FORGE_VERSION" value="36.2.29" />
+      <env name="FORGE_VERSION" value="36.2.33" />
       <env name="assetIndex" value="1.16" />
       <env name="assetDirectory" value="C:\Users\Eivind\.gradle\caches\forge_gradle\assets" />
       <env name="nativesDirectory" value="$PROJECT_DIR$/../Barista\forge\build\natives" />
@@ -17,7 +15,7 @@
     <option name="MAIN_CLASS_NAME" value="net.minecraftforge.userdev.LaunchTesting" />
     <module name="Barista.forge.main" />
     <option name="PROGRAM_PARAMETERS" value="--mixin.config mixins.barista.json" />
-    <option name="VM_PARAMETERS" value="-Dfml.earlyprogresswindow=false -Dnet.minecraftforge.gradle.GradleStart.srg.srg-mcp=C:\Users\Eivind\Documents\Dev\Modding\Barista\forge\build\createSrgToMcp\output.srg -Dmixin.env.remapRefMap=true -Dmixin.env.refMapRemappingFile=C:\Users\Eivind\Documents\Dev\Modding\Barista\forge\build\createSrgToMcp\output.srg -XX:+IgnoreUnrecognizedVMOptions --add-exports=java.base/sun.security.util=ALL-UNNAMED --add-exports=jdk.naming.dns/com.sun.jndi.dns=java.naming --add-opens=java.base/java.util.jar=ALL-UNNAMED -XX:HeapDumpPath=MojangTricksIntelDriversForPerformance_javaw.exe_minecraft.exe.heapdump &quot;-Dos.name=Windows 10&quot; -Dos.version=10.0" />
+    <option name="VM_PARAMETERS" value="-Dfml.earlyprogresswindow=false -Dnet.minecraftforge.gradle.GradleStart.srg.srg-mcp=C:\Users\Eivind\Barista\forge\build\createSrgToMcp\output.srg -Dmixin.env.remapRefMap=true -Dmixin.env.refMapRemappingFile=C:\Users\Eivind\Barista\forge\build\createSrgToMcp\output.srg -XX:+IgnoreUnrecognizedVMOptions --add-exports=java.base/sun.security.util=ALL-UNNAMED --add-exports=jdk.naming.dns/com.sun.jndi.dns=java.naming --add-opens=java.base/java.util.jar=ALL-UNNAMED -XX:HeapDumpPath=MojangTricksIntelDriversForPerformance_javaw.exe_minecraft.exe.heapdump &quot;-Dos.name=Windows 10&quot; -Dos.version=10.0" />
     <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/run" />
     <method v="2">
       <option name="Make" enabled="true" />
