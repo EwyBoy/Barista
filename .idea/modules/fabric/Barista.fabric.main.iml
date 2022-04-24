@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module version="4">
   <component name="McpModuleSettings">
-    <option name="srgType" value="SRG" />
+    <option name="mappingFile" value="C:\Users\Eivind\Documents\Dev\Modding\Barista\forge\build\createMcpToSrg\output.tsrg" />
+    <option name="mcpVersion" value="official_1.18.2" />
+    <option name="minecraftVersion" value="1.18.2" />
+    <option name="srgType" value="TSRG" />
   </component>
 </module>
