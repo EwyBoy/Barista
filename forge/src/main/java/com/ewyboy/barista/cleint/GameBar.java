@@ -11,11 +11,21 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 public class GameBar {
 
+    private int menuFrame = 0;
+    private int overlayFrame = 0;
+
     private final Minecraft mc = Minecraft.getInstance();
 
     public void renderOverlay() {
-        if(mc.isPaused()) return;
-        mc.getWindow().setTitle(buildBar(mc));
+        if (mc.isPaused()) return;
+        if (mc.screen != null) return;
+
+        overlayFrame++;
+
+        if (overlayFrame % 10 == 0) {
+            mc.getWindow().setTitle(buildBar(mc));
+            overlayFrame = 0;
+        }
     }
 
     @SubscribeEvent
@@ -27,10 +37,14 @@ public class GameBar {
 
     @SubscribeEvent
     public void onScreenDraw(ScreenEvent.DrawScreenEvent.Post event) {
-        if (event.getScreen() instanceof LevelLoadingScreen loadingScreen) {
-            mc.getWindow().setTitle(buildMainMenuBar(mc, "World Loading: " + loadingScreen.progressListener.getProgress() + "%"));
-        } else if (!event.getScreen().getTitle().getString().isEmpty()) {
-            mc.getWindow().setTitle(buildMainMenuBar(mc, event.getScreen().getTitle().getString()));
+        menuFrame++;
+        if (menuFrame % 10 == 0) {
+            if (event.getScreen() instanceof LevelLoadingScreen loadingScreen) {
+                mc.getWindow().setTitle(buildMainMenuBar(mc, "World Loading: " + loadingScreen.progressListener.getProgress() + "%"));
+            } else if (!event.getScreen().getTitle().getString().isEmpty()) {
+                mc.getWindow().setTitle(buildMainMenuBar(mc, event.getScreen().getTitle().getString()));
+            }
+            menuFrame = 0;
         }
     }
 
