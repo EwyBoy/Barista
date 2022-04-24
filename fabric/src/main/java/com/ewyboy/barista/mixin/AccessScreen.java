@@ -15,14 +15,20 @@ import static com.ewyboy.barista.client.GameBar.buildMainMenuBar;
 @Mixin(Screen.class)
 public class AccessScreen {
 
+    int guiFrame = 0;
+
     @Inject(at = @At("TAIL"), method = "render")
     public void init(PoseStack poseStack, int mouseX, int mouseY, float partialTicks, CallbackInfo info) {
         Minecraft mc = Minecraft.getInstance();
         Screen screen = mc.screen;
 
-        if (!Objects.requireNonNull(screen).getTitle().getString().isEmpty()) {
-            mc.getWindow().setTitle(buildMainMenuBar(mc, screen.getTitle().getString()));
+        guiFrame++;
+
+        if (guiFrame % 10 == 0) {
+            if (!Objects.requireNonNull(screen).getTitle().getString().isEmpty()) {
+                mc.getWindow().setTitle(buildMainMenuBar(mc, screen.getTitle().getString()));
+            }
+            guiFrame = 0;
         }
     }
-
 }
