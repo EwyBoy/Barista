@@ -3,21 +3,29 @@ package com.ewyboy.barista.cleint;
 import com.ewyboy.barista.json.JsonHandler;
 import com.ewyboy.barista.json.objects.BarModule;
 import com.ewyboy.barista.module.ModuleHandler;
-import com.ewyboy.barista.util.ModLogger;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screen.*;
-import net.minecraftforge.client.ForgeHooksClient;
+import net.minecraft.client.gui.screen.WorldLoadProgressScreen;
 import net.minecraftforge.client.event.GuiScreenEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 public class GameBar {
 
+    private int menuFrame = 0;
+    private int overlayFrame = 0;
+
     private final Minecraft mc = Minecraft.getInstance();
 
     public void renderOverlay() {
         if(mc.isPaused()) return;
-        mc.getWindow().setTitle(buildBar(mc));
+        if(mc.screen != null) return;
+
+        overlayFrame++;
+
+        if (overlayFrame % 10 == 0) {
+            mc.getWindow().setTitle(buildBar(mc));
+            overlayFrame = 0;
+        }
     }
 
     @SubscribeEvent
@@ -29,11 +37,15 @@ public class GameBar {
 
     @SubscribeEvent
     public void onScreenDraw(GuiScreenEvent.DrawScreenEvent.Post event) {
-        if (event.getGui() instanceof WorldLoadProgressScreen) {
-            WorldLoadProgressScreen worldLoadProgressScreen = (WorldLoadProgressScreen) event.getGui();
-            mc.getWindow().setTitle(buildMainMenuBar(mc, "World Loading: " + worldLoadProgressScreen.progressListener.getProgress() + "%"));
-        } else if (!event.getGui().getTitle().getString().isEmpty()) {
-            mc.getWindow().setTitle(buildMainMenuBar(mc, event.getGui().getTitle().getString()));
+        menuFrame++;
+        if (menuFrame % 10 == 0) {
+            if (event.getGui() instanceof WorldLoadProgressScreen) {
+                WorldLoadProgressScreen worldLoadProgressScreen = (WorldLoadProgressScreen) event.getGui();
+                mc.getWindow().setTitle(buildMainMenuBar(mc, "World Loading: " + worldLoadProgressScreen.progressListener.getProgress() + "%"));
+            } else if (!event.getGui().getTitle().getString().isEmpty()) {
+                mc.getWindow().setTitle(buildMainMenuBar(mc, event.getGui().getTitle().getString()));
+            }
+            menuFrame = 0;
         }
     }
 
