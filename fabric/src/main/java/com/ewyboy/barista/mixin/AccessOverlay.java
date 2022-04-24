@@ -12,20 +12,25 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(Gui.class)
 public class AccessOverlay {
 
+    int overlayFrame = 0;
+
     @Inject(at = @At("TAIL"), method = "render")
     public void init(PoseStack poseStack, float deltaTime, CallbackInfo info) {
         Minecraft mc = Minecraft.getInstance();
-
-        if (mc.options.renderDebug) {
-            return;
-        }
 
         renderOverlay(mc);
     }
 
     public void renderOverlay(Minecraft mc) {
         if(mc.isPaused()) return;
-        mc.getWindow().setTitle(GameBar.buildBar(mc));
+        if(mc.screen != null) return;
+
+        overlayFrame++;
+
+        if (overlayFrame % 10 == 0) {
+            mc.getWindow().setTitle(GameBar.buildBar(mc));
+            overlayFrame = 0;
+        }
     }
 
 

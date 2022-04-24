@@ -13,7 +13,6 @@ import static com.ewyboy.barista.client.GameBar.buildMainMenuBar;
 
 @Mixin(LevelLoadingScreen.class)
 public class AccessLoading {
-
     @Inject(at = @At("TAIL"), method = "render")
     public void init(PoseStack poseStack, int mouseX, int mouseY, float partialTicks, CallbackInfo info) {
         Minecraft mc = Minecraft.getInstance();
