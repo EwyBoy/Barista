@@ -33,6 +33,7 @@ public class Barista {
         JsonHandler.setup();
         InfoHandler.setup();
         FMLJavaModLoadingContext.get().getModEventBus().register(this);
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(Keybindings :: onRegisterKeyBinds);
     }
 
     private void startClock() {
@@ -60,8 +61,8 @@ public class Barista {
             builder.append("Starting up..");
             mc.getWindow().setTitle(builder.toString());
         });
-        Keybindings.setup();
         MinecraftForge.EVENT_BUS.register(new GameBar());
+        MinecraftForge.EVENT_BUS.register(new Keybindings());
     }
 
 }

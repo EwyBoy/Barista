@@ -3,10 +3,9 @@ package com.ewyboy.barista.cleint;
 import com.ewyboy.barista.json.JsonHandler;
 import com.ewyboy.barista.json.objects.BarModule;
 import com.ewyboy.barista.module.ModuleHandler;
-import com.ewyboy.barista.util.ModLogger;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.LevelLoadingScreen;
-import net.minecraftforge.client.event.RenderGameOverlayEvent;
+import net.minecraftforge.client.event.RenderGuiOverlayEvent;
 import net.minecraftforge.client.event.ScreenEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
@@ -30,14 +29,12 @@ public class GameBar {
     }
 
     @SubscribeEvent
-    public void onRenderOverlay(RenderGameOverlayEvent.Post event) {
-        if (event.getType() == RenderGameOverlayEvent.ElementType.ALL) {
-            renderOverlay();
-        }
+    public void onRenderOverlay(RenderGuiOverlayEvent.Post event) {
+        renderOverlay();
     }
 
     @SubscribeEvent
-    public void onScreenDraw(ScreenEvent.DrawScreenEvent.Post event) {
+    public void onScreenDraw(ScreenEvent.Render.Post event) {
         menuFrame++;
         if (menuFrame % 10 == 0) {
             if (event.getScreen() instanceof LevelLoadingScreen loadingScreen) {

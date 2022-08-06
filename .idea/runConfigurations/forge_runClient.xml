@@ -1,5 +1,7 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="forge runClient" type="Application" factoryName="Application" singleton="false">
+    <option name="ALTERNATIVE_JRE_PATH" value="C:\Users\Eivind\AppData\Roaming\DCEVM" />
+    <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
     <envs>
       <env name="MOD_CLASSES" value="barista%%$PROJECT_DIR$/../Barista\forge\build\resources\main;barista%%$PROJECT_DIR$/../Barista\forge\build\classes\java\main" />
       <env name="MCP_MAPPINGS" value="official_1.18.2" />

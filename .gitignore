@@ -13,9 +13,15 @@ out
 *.iws
 *.iml
 .idea
+.xml
+.iml
+.dll
+.sha1
+.srg
 
 # gradle
 build
+build/*
 .gradle
 
 # other

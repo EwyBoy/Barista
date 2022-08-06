@@ -7,6 +7,7 @@ import com.ewyboy.barista.util.Statinator;
 import com.ewyboy.barista.util.Translation;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.PlayerInfo;
+import net.minecraft.core.Registry;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -83,7 +84,7 @@ public class ModuleHandler {
 
     public static void getBiome(Minecraft mc, StringBuilder builder) {
         if (mc.player != null) {
-            builder.append(ModuleFormatter.formatTranslation(Translation.Bar.BIOME)).append(x).append(ModuleFormatter.formatBiome(mc.player.clientLevel.getBiome(mc.player.blockPosition()))).append(separator);
+            builder.append(ModuleFormatter.formatTranslation(Translation.Bar.BIOME)).append(x).append(ModuleFormatter.formatBiome(Objects.requireNonNull(Objects.requireNonNull(mc.level).registryAccess().registryOrThrow(Registry.BIOME_REGISTRY).getKey(mc.level.getBiome(Objects.requireNonNull(mc.getCameraEntity()).blockPosition()).value())).toString())).append(separator);
         }
     }
 

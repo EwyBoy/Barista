@@ -1,13 +1,15 @@
 package com.ewyboy.barista.module;
 
+import com.ewyboy.barista.util.ModLogger;
 import com.ewyboy.barista.util.Translation;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.Holder;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraftforge.fml.loading.FMLPaths;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.commons.lang3.text.WordUtils;
 
 import java.io.File;
@@ -28,27 +30,27 @@ public class ModuleFormatter {
     }
 
     public static String formatTranslation(String translation) {
-        TranslatableComponent textComponent = new TranslatableComponent(translation);
+        Component textComponent = Component.translatable(translation);
         return textComponent.getString();
     }
 
     public static String formatTranslation(String text, String translation) {
-        TranslatableComponent textComponent = new TranslatableComponent(translation, text);
+        Component textComponent = Component.translatable(translation, text);
         return textComponent.getString();
     }
 
     public static String formatTranslation(String text1, String text2, String translation) {
-        TranslatableComponent textComponent = new TranslatableComponent(translation, text1, text2);
+        Component textComponent = Component.translatable(translation, text1, text2);
         return textComponent.getString();
     }
 
     public static String formatTranslation(String text1, String text2, String text3, String translation) {
-        TranslatableComponent textComponent = new TranslatableComponent(translation, text1, text2, text3);
+        Component textComponent = Component.translatable(translation, text1, text2, text3);
         return textComponent.getString();
     }
 
-    public static String formatBiome(Holder<Biome> biome) {
-        String name = Objects.requireNonNull(biome.value().getRegistryName()).getPath().replace('_', ' ');
+    public static String formatBiome(String biome) {
+        String name = biome.split(":")[1].replace('_', ' ');
         return WordUtils.capitalize(name);
     }
 
