@@ -10,7 +10,9 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.PlayerInfo;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.resources.IoSupplier;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -30,8 +32,8 @@ public class ModuleHandler {
     }
 
     public static void getIcon(Minecraft mc, String ctx) {
-        InputStream formattedIcon = ModuleFormatter.formatIcon(ctx);
-        if (formattedIcon != null) mc.getWindow().setIcon(formattedIcon, formattedIcon);
+        IoSupplier<InputStream> formattedIcon = ModuleFormatter.formatIcon(ctx);
+        mc.getWindow().setIcon(formattedIcon, formattedIcon);
     }
 
     public static void getMods(StringBuilder builder) {
@@ -86,7 +88,7 @@ public class ModuleHandler {
 
     public static void getBiome(Minecraft mc, StringBuilder builder) {
         if (mc.player != null) {
-            builder.append(ModuleFormatter.formatTranslation(Translation.Bar.BIOME)).append(x).append(ModuleFormatter.formatBiome(Objects.requireNonNull(Objects.requireNonNull(mc.level).registryAccess().registryOrThrow(Registry.BIOME_REGISTRY).getKey(mc.level.getBiome(Objects.requireNonNull(mc.getCameraEntity()).blockPosition()).value())).toString())).append(separator);
+            builder.append(ModuleFormatter.formatTranslation(Translation.Bar.BIOME)).append(x).append(ModuleFormatter.formatBiome(Objects.requireNonNull(Objects.requireNonNull(mc.level).registryAccess().registryOrThrow(Registries.BIOME).getKey(mc.level.getBiome(Objects.requireNonNull(mc.getCameraEntity()).blockPosition()).value())).toString())).append(separator);
         }
     }
 

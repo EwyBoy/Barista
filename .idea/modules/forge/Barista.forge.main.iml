@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module version="4">
+  <component name="AdditionalModuleElements">
+    <content url="file://$MODULE_DIR$/../../../forge/build/generated/sources/annotationProcessor/java/main">
+      <sourceFolder url="file://$MODULE_DIR$/../../../forge/build/generated/sources/annotationProcessor/java/main" isTestSource="false" generated="true" />
+    </content>
+  </component>
   <component name="FacetManager">
     <facet type="minecraft" name="Minecraft">
       <configuration>
@@ -12,10 +17,10 @@
     </facet>
   </component>
   <component name="McpModuleSettings">
-    <option name="mappingFile" value="C:\Users\Eivind\Documents\Dev\Modding\Barista\forge\build\createMcpToSrg\output.tsrg" />
-    <option name="mcpVersion" value="official_1.19.2" />
-    <option name="minecraftVersion" value="1.19.2" />
-    <option name="platformVersion" value="43.0.0" />
+    <option name="mappingFile" value="C:\Dev\Modding\Barista\forge\build\createMcpToSrg\output.tsrg" />
+    <option name="mcpVersion" value="official_1.19.4" />
+    <option name="minecraftVersion" value="1.19.4" />
+    <option name="platformVersion" value="45.0.47" />
     <option name="srgType" value="TSRG" />
   </component>
 </module>

@@ -6,6 +6,7 @@ import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.packs.resources.IoSupplier;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraftforge.fml.loading.FMLPaths;
@@ -69,13 +70,17 @@ public class ModuleFormatter {
         return weather;
     }
 
-    public static InputStream formatIcon(String ctx) {
-        try {
-            return Files.newInputStream(new File(FMLPaths.CONFIGDIR.get() + "/barista/icon/" + ctx).toPath(), StandardOpenOption.READ);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
+    // IoSupplier<InputStream>
+
+    public static IoSupplier<InputStream> formatIcon(String ctx) {
+        return () -> {
+            try {
+                return Files.newInputStream(new File(FMLPaths.CONFIGDIR.get() + "/barista/icon/" + ctx).toPath(), StandardOpenOption.READ);
+            } catch (IOException e) {
+                e.printStackTrace();
+                return null;
+            }
+        };
     }
 
 }

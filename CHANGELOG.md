@@ -1,6 +1,10 @@
 # Barista Changelog  
 
+### v1.2.0
+* Added support for 1.19.4
+
 ### v1.1.2  
+* Added support for 1.19.3  
 * Added support for 1.19.2  
 * Added support for 1.19.1  
 

@@ -35,7 +35,7 @@ public class RayTracer {
             if(blockZ == Math.floor(blockZ) && blockZ <= playerZ)     {blockZ--;}
 
             if (mc.level != null) {
-                return mc.level.getBlockState(new BlockPos(blockX, blockY, blockZ));
+                return mc.level.getBlockState(BlockPos.containing(blockX, blockY, blockZ));
             }
         }
 

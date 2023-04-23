@@ -5,6 +5,7 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.packs.resources.IoSupplier;
 import net.minecraft.world.level.Level;
 import org.apache.commons.lang3.text.WordUtils;
 
@@ -65,13 +66,15 @@ public class ModuleFormatter {
         return weather;
     }
 
-    public static InputStream formatIcon(String ctx) {
-        try {
-            return Files.newInputStream(new File(FabricLoader.getInstance().getConfigDir() + "/barista/icon/" + ctx).toPath(), StandardOpenOption.READ);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
+    public static IoSupplier<InputStream> formatIcon(String ctx) {
+        return () -> {
+            try {
+                return Files.newInputStream(new File(FabricLoader.getInstance().getConfigDir() + "/barista/icon/" + ctx).toPath(), StandardOpenOption.READ);
+            } catch (IOException e) {
+                e.printStackTrace();
+                return null;
+            }
+        };
     }
 
 }
