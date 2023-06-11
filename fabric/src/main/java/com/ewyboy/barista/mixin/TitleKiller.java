@@ -7,9 +7,9 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(Minecraft.class)
-public final class TitleKiller {
+public abstract class TitleKiller {
 
-    @Inject(method = "updateTitle()V", at = @At("HEAD"), cancellable = true)
+    @Inject(at = @At("HEAD"), method = "updateTitle()V", cancellable = true)
     private void updateTitle(final CallbackInfo callbackInfo) {
         callbackInfo.cancel();
     }

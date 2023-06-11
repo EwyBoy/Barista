@@ -13,7 +13,7 @@ import java.util.Objects;
 
 public class DirectoryHandler {
 
-    public static final String ICON_PATH = "assets/barista/icon/icon.png";
+    public static final String ICON_PATH = "assets/barista/icons/icon.png";
     public static final Path BASE_DIRECTORY_PATH = Paths.get(FabricLoader.getInstance().getConfigDir().toAbsolutePath().toString(), Barista.MOD_ID);
     public static final Path ICON_DIRECTORY_PATH = Paths.get(FabricLoader.getInstance().getConfigDir().toAbsolutePath() + "/" + Barista.MOD_ID, "icon");
     public static final Path ICON_DIRECTORY_CONFIG_PATH = Paths.get(FabricLoader.getInstance().getConfigDir().toAbsolutePath() + "/" + Barista.MOD_ID, "icon/icon.png");

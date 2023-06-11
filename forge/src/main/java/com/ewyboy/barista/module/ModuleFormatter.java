@@ -1,26 +1,28 @@
 package com.ewyboy.barista.module;
 
-import com.ewyboy.barista.util.ModLogger;
+import com.ewyboy.barista.Barista;
 import com.ewyboy.barista.util.Translation;
 import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.packs.resources.IoSupplier;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.biome.Biome;
 import net.minecraftforge.fml.loading.FMLPaths;
-import net.minecraftforge.registries.ForgeRegistries;
+import org.apache.commons.compress.utils.IOUtils;
 import org.apache.commons.lang3.text.WordUtils;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
-import java.util.Objects;
+import java.util.*;
 
 public class ModuleFormatter {
+
+    private static final Map<String, byte[]> STORAGE = new HashMap<>();
+    private static final List<String> PNG_PATHS = new LinkedList<>();
 
     public static String formatPosition(String pos) {
         String[] string = pos.split(",");
@@ -70,17 +72,30 @@ public class ModuleFormatter {
         return weather;
     }
 
-    // IoSupplier<InputStream>
-
-    public static IoSupplier<InputStream> formatIcon(String ctx) {
-        return () -> {
-            try {
-                return Files.newInputStream(new File(FMLPaths.CONFIGDIR.get() + "/barista/icon/" + ctx).toPath(), StandardOpenOption.READ);
-            } catch (IOException e) {
-                e.printStackTrace();
-                return null;
+    public static void formatIcon(String ctx, boolean isPng) {
+        try {
+            var file = Files.newInputStream(new File(FMLPaths.CONFIGDIR.get().toAbsolutePath() + "/" + Barista.MOD_ID + "/icon/" + ctx).toPath(), StandardOpenOption.READ);
+            byte[] data = IOUtils.toByteArray(file);
+            STORAGE.put(ctx, data);
+            if (isPng) {
+                PNG_PATHS.add(ctx);
             }
-        };
+        } catch (IOException e) {
+            throw new RuntimeException(String.format("Failed to load resource %s: %s", ctx, e));
+        }
+    }
+
+    public static IoSupplier<InputStream> getResource(String path) {
+        byte[] data = STORAGE.get(path);
+        if (data == null) {
+            throw new RuntimeException("Unexpected resource path " + path);
+        } else {
+            return () -> new ByteArrayInputStream(data);
+        }
+    }
+
+    public static List<IoSupplier<InputStream>> getAllPngResources() {
+        return PNG_PATHS.stream().map(ModuleFormatter :: getResource).toList();
     }
 
 }

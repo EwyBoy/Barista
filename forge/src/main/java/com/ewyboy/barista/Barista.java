@@ -6,6 +6,7 @@ import com.ewyboy.barista.json.InfoHandler;
 import com.ewyboy.barista.json.JsonHandler;
 import com.ewyboy.barista.module.ModuleHandler;
 import com.ewyboy.barista.util.Clockwork;
+import com.ewyboy.barista.util.ModLogger;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -13,6 +14,7 @@ import net.minecraftforge.fml.IExtensionPoint;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLConstructModEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 import java.util.Objects;
@@ -30,10 +32,8 @@ public class Barista {
     public Barista() {
         startClock();
         ignoreServerOnly();
-        JsonHandler.setup();
-        InfoHandler.setup();
         FMLJavaModLoadingContext.get().getModEventBus().register(this);
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(Keybindings :: onRegisterKeyBinds);
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(Keybindings::onRegisterKeyBinds);
     }
 
     private void startClock() {
@@ -41,7 +41,6 @@ public class Barista {
         clockwork.start();
     }
 
-    //Make sure the mod being absent on the other network side does not cause the client to display the server as incompatible
     private void ignoreServerOnly() {
         ModLoadingContext.get().registerExtensionPoint(IExtensionPoint.DisplayTest.class, () ->
                 new IExtensionPoint.DisplayTest(() -> "You Can Write Whatever The Fuck You Want Here", (YouCanWriteWhatEverTheFuckYouWantHere, ICreatedSlimeBlocks2YearsBeforeMojangDid) -> ICreatedSlimeBlocks2YearsBeforeMojangDid)
@@ -51,12 +50,13 @@ public class Barista {
     @SubscribeEvent
     public void clientRegister(FMLClientSetupEvent event) {
         StringBuilder builder = new StringBuilder();
-        event.enqueueWork(() -> JsonHandler.barConfig.getModuleList().forEach(module -> {
-            if (Objects.equals(module.getName(), "icon") && module.isDisplay())
-                ModuleHandler.getIcon(Minecraft.getInstance(), module.getContext());
+
+        JsonHandler.barConfig.getModuleList().forEach(module -> {
             if (Objects.equals(module.getName(), "text") && module.isDisplay())
                 ModuleHandler.getText(builder, module.getContext());
-        })).thenRun(() -> {
+        });
+
+        event.enqueueWork(() -> null).thenRun(() -> {
             Minecraft mc = Minecraft.getInstance();
             builder.append("Starting up..");
             mc.getWindow().setTitle(builder.toString());

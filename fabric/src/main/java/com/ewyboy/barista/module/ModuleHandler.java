@@ -3,21 +3,16 @@ package com.ewyboy.barista.module;
 import com.ewyboy.barista.Barista;
 import com.ewyboy.barista.util.Clockwork;
 import com.ewyboy.barista.util.RayTracer;
-import com.ewyboy.barista.util.Statinator;
+import com.ewyboy.barista.util.Stateinator;
 import com.ewyboy.barista.util.Translation;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.PlayerInfo;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.packs.resources.IoSupplier;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
-import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
@@ -31,9 +26,8 @@ public class ModuleHandler {
         builder.append(ctx).append(separator);
     }
 
-    public static void getIcon(Minecraft mc, String ctx) {
-        IoSupplier<InputStream> formattedIcon = ModuleFormatter.formatIcon(ctx);
-        mc.getWindow().setIcon(formattedIcon, formattedIcon);
+    public static void getIcon(String ctx) {
+        ModuleFormatter.formatIcon(ctx, true);
     }
 
     public static void getMods(StringBuilder builder) {
@@ -108,7 +102,7 @@ public class ModuleHandler {
     public static void getProperty(Minecraft mc, StringBuilder builder) {
         BlockState state = RayTracer.getStateFromRaytrace(mc);
         if (state != null) {
-            Statinator.handleStates(state, builder, separator);
+            Stateinator.handleStates(state, builder, separator);
         }
     }
 

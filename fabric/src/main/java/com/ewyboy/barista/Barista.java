@@ -31,14 +31,15 @@ public class Barista implements ClientModInitializer {
 
         StringBuilder builder = new StringBuilder();
 
+        JsonHandler.barConfig.getModuleList().forEach(module -> {
+            if (Objects.equals(module.getName(), "icon") && module.isDisplay())
+                ModuleHandler.getIcon(module.getContext());
+            if (Objects.equals(module.getName(), "text") && module.isDisplay())
+                ModuleHandler.getText(builder, module.getContext());
+        });
+
         Minecraft.getInstance().execute(() -> {
             Minecraft mc = Minecraft.getInstance();
-            JsonHandler.barConfig.getModuleList().forEach(module -> {
-                if (Objects.equals(module.getName(), "icon") && module.isDisplay())
-                    ModuleHandler.getIcon(mc, module.getContext());
-                if (Objects.equals(module.getName(), "text") && module.isDisplay())
-                    ModuleHandler.getText(builder, module.getContext());
-            });
             builder.append("Starting up..");
             mc.getWindow().setTitle(builder.toString());
         });
