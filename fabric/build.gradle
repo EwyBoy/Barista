@@ -1,13 +1,14 @@
 plugins {
-    id 'fabric-loom' version '0.12-SNAPSHOT'
-    id 'com.matthewprenger.cursegradle' version '1.4.0'
+    id 'fabric-loom' version '1.9-SNAPSHOT'
+    id 'net.darkhax.curseforgegradle' version '1.1.28'
     id 'maven-publish'
 }
 
-sourceCompatibility = JavaVersion.VERSION_17
-targetCompatibility = JavaVersion.VERSION_17
+java.toolchain.languageVersion = JavaLanguageVersion.of(21)
 
-archivesBaseName = project.MOD_NAME
+base {
+    archivesName = project.MOD_NAME
+}
 version = project.MC_VERSION_GENERAL + "-" + project.VERSION + "-" + project.MOD_LOADER
 group = project.MAVEN_GROUP
 
@@ -51,7 +52,7 @@ processResources {
 tasks.withType(JavaCompile).configureEach {
 
     it.options.encoding = "UTF-8"
-    def targetVersion = 17
+    def targetVersion = 21
 
     if (JavaVersion.current().isJava9Compatible()) {
         it.options.release = targetVersion
@@ -72,24 +73,20 @@ loom {
     accessWidenerPath = file("src/main/resources/barista.accesswidener")
 }
 
-curseforge {
+task curseforge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge) {
     if (project.hasProperty('CF_API_KEY')){
-        apiKey = project.getProperty('CF_API_KEY')
+        apiToken = project.getProperty('CF_API_KEY')
     }
-    project {
-        id = "${PROJECT_ID}"
-        changelogType = 'markdown'
-        changelog = file('../CHANGELOG.md')
-        releaseType = "${RELEASE_TYPE}"
-        addGameVersion "${MOD_LOADER}"
-        addGameVersion "${JAVA_VERSION}"
-        addGameVersion '1.20'
-        mainArtifact(remapJar) {
-            displayName = "${MOD_NAME}-${MC_VERSION_GENERAL}-${VERSION}-${MOD_LOADER}.jar"
-        }
-    }
-    options {
-        forgeGradleIntegration = false
-        javaVersionAutoDetect = false
-    }
+
+    def mainFile = upload(project.PROJECT_ID, jar)
+    mainFile.releaseType = "${RELEASE_TYPE}"
+    mainFile.addModLoader "${MOD_LOADER}"
+    mainFile.addGameVersion "${MC_VERSION}"
+    mainFile.addJavaVersion "${JAVA_VERSION}"
+    mainFile.addEnvironment('Client', 'Server')
+
+    mainFile.changelog = file("$project.rootDir/CHANGELOG.md")
+    mainFile.changelogType = 'markdown'
+
+    mainFile.displayName = "${MOD_NAME}-${MC_VERSION_GENERAL}-${VERSION}-${MOD_LOADER}.jar"
 }
