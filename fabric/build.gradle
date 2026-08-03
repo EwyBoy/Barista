@@ -78,7 +78,9 @@ task curseforge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge) {
         apiToken = project.getProperty('CF_API_KEY')
     }
 
-    def mainFile = upload(project.PROJECT_ID, jar)
+    // Must be remapJar, not jar. Loom leaves the `jar` output in build/devlibs with named
+    // mappings, which do not exist at runtime, so uploading it would ship a mod that cannot load.
+    def mainFile = upload(project.PROJECT_ID, remapJar)
     mainFile.releaseType = "${RELEASE_TYPE}"
     mainFile.addModLoader "${MOD_LOADER}"
     mainFile.addGameVersion "${MC_VERSION}"
