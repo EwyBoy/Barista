@@ -1,7 +1,7 @@
 package com.ewyboy.barista.mixin;
 
 import com.ewyboy.barista.client.GameBar;
-import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiGraphics;
@@ -16,7 +16,7 @@ public abstract class AccessOverlay {
     int overlayFrame = 0;
 
     @Inject(at = @At("TAIL"), method = "render")
-    public void init(GuiGraphics poseStack, float deltaTime, CallbackInfo info) {
+    public void init(GuiGraphics guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci) {
         Minecraft mc = Minecraft.getInstance();
         renderOverlay(mc);
     }
