@@ -4,7 +4,7 @@
   "version": "${version}",
 
   "name": "Barista",
-  "description": "",
+  "description": "Displays information in the game window bar",
   "authors": [
     "Ewy"
   ],
@@ -30,6 +30,6 @@
 
   "depends": {
     "fabricloader": ">=0.16.10",
-    "minecraft": "1.21.x"
+    "minecraft": ">=1.21.1 <1.21.2"
   }
 }
