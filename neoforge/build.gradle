@@ -3,7 +3,7 @@ plugins {
     id 'idea'
     id 'java-library'
     id 'maven-publish'
-    id 'net.neoforged.moddev' version '2.0.141'
+    id 'net.neoforged.moddev' version '2.0.143'
     id 'net.darkhax.curseforgegradle' version '1.1.28'
 }
 
@@ -23,10 +23,7 @@ neoForge {
         minecraftVersion = "${PARCHMENT_MINECRAFT_VERSION}"
     }
 
-    def at = file('src/main/resources/META-INF/accesstransformer.cfg')
-    if (at.exists()) {
-        accessTransformers.from(at.absolutePath)
-    }
+    // src/main/resources/META-INF/accesstransformer.cfg is picked up automatically.
 
     runs {
         client {
@@ -94,7 +91,7 @@ neoForge.ideSyncTask generateModMetadata
 
 repositories {
     maven {
-        url "https://www.cursemaven.com"
+        url = "https://www.cursemaven.com"
         content {
             includeGroup "curse.maven"
         }
