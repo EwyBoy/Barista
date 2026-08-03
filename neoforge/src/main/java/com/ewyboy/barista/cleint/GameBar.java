@@ -3,6 +3,7 @@ package com.ewyboy.barista.cleint;
 import com.ewyboy.barista.json.JsonHandler;
 import com.ewyboy.barista.json.objects.BarModule;
 import com.ewyboy.barista.module.ModuleHandler;
+import com.ewyboy.barista.util.Bartender;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.LevelLoadingScreen;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -11,21 +12,13 @@ import net.neoforged.neoforge.client.event.ScreenEvent;
 
 public class GameBar {
 
-    private int menuFrame = 0;
-    private int overlayFrame = 0;
-
     private final Minecraft mc = Minecraft.getInstance();
 
     public void renderOverlay() {
         if (mc.isPaused()) return;
         if (mc.screen != null) return;
 
-        overlayFrame++;
-
-        if (overlayFrame % 10 == 0) {
-            mc.getWindow().setTitle(buildBar(mc));
-            overlayFrame = 0;
-        }
+        Bartender.serve(mc, () -> buildBar(mc));
     }
 
     @SubscribeEvent
@@ -35,14 +28,10 @@ public class GameBar {
 
     @SubscribeEvent
     public void onScreenDraw(ScreenEvent.Render.Post event) {
-        menuFrame++;
-        if (menuFrame % 10 == 0) {
-            if (event.getScreen() instanceof LevelLoadingScreen loadingScreen) {
-                mc.getWindow().setTitle(buildMainMenuBar(mc, "World Loading: " + loadingScreen.progressListener.getProgress() + "%"));
-            } else if (!event.getScreen().getTitle().getString().isEmpty()) {
-                mc.getWindow().setTitle(buildMainMenuBar(mc, event.getScreen().getTitle().getString()));
-            }
-            menuFrame = 0;
+        if (event.getScreen() instanceof LevelLoadingScreen loadingScreen) {
+            Bartender.serve(mc, () -> buildMainMenuBar(mc, "World Loading: " + loadingScreen.progressListener.getProgress() + "%"));
+        } else if (!event.getScreen().getTitle().getString().isEmpty()) {
+            Bartender.serve(mc, () -> buildMainMenuBar(mc, event.getScreen().getTitle().getString()));
         }
     }
 

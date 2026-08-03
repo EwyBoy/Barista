@@ -1,5 +1,6 @@
 package com.ewyboy.barista.mixin;
 
+import com.ewyboy.barista.util.Bartender;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.LevelLoadingScreen;
@@ -20,7 +21,7 @@ public abstract class AccessLoading {
         Screen gui = mc.screen;
 
         if (gui instanceof LevelLoadingScreen levelLoadingScreen) {
-            mc.getWindow().setTitle(buildMainMenuBar(mc, "World Loading: " + levelLoadingScreen.progressListener.getProgress() + "%"));
+            Bartender.serve(mc, () -> buildMainMenuBar(mc, "World Loading: " + levelLoadingScreen.progressListener.getProgress() + "%"));
         }
 
     }

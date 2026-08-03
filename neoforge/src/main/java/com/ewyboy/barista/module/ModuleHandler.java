@@ -15,12 +15,17 @@ import net.neoforged.fml.ModList;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public class ModuleHandler {
 
     private static final String x = ": ";
     private static final String separator = " | ";
+
+    /** Parsing a date pattern is not cheap, so keep one formatter per pattern the config asks for. */
+    private static final Map<String, SimpleDateFormat> CLOCK_FORMATS = new HashMap<>();
 
     public static void getText(StringBuilder builder, String ctx) {
         builder.append(ctx).append(separator);
@@ -35,7 +40,14 @@ public class ModuleHandler {
     }
 
     public static void getFps(Minecraft mc, StringBuilder builder) {
-        builder.append(ModuleFormatter.formatTranslation(mc.fpsString.split("\\s+")[0], Translation.Bar.FPS)).append(separator);
+        builder.append(ModuleFormatter.formatTranslation(frameRate(mc), Translation.Bar.FPS)).append(separator);
+    }
+
+    /** fpsString reads "%d fps T: ..", so slice off the count instead of compiling a regex every call. */
+    private static String frameRate(Minecraft mc) {
+        String fps = mc.fpsString;
+        int space = fps.indexOf(' ');
+        return space == -1 ? fps : fps.substring(0, space);
     }
 
     public static void getPing(Minecraft mc, StringBuilder builder) {
@@ -125,9 +137,8 @@ public class ModuleHandler {
     }
 
     public static void getClock(StringBuilder builder, String ctx) {
-        SimpleDateFormat formatter = new SimpleDateFormat(ctx);
-        Date date = new Date();
-        builder.append(formatter.format(date)).append(separator);
+        SimpleDateFormat formatter = CLOCK_FORMATS.computeIfAbsent(ctx, SimpleDateFormat::new);
+        builder.append(formatter.format(new Date())).append(separator);
     }
 
     public static void getSession(StringBuilder builder) {

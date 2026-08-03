@@ -1,5 +1,6 @@
 package com.ewyboy.barista.mixin;
 
+import com.ewyboy.barista.util.Bartender;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
@@ -15,20 +16,13 @@ import static com.ewyboy.barista.client.GameBar.buildMainMenuBar;
 @Mixin(Screen.class)
 public abstract class AccessScreen {
 
-    int guiFrame = 0;
-
     @Inject(at = @At("TAIL"), method = "render")
     public void init(GuiGraphics poseStack, int mouseX, int mouseY, float partialTicks, CallbackInfo info) {
         Minecraft mc = Minecraft.getInstance();
         Screen screen = mc.screen;
 
-        guiFrame++;
-
-        if (guiFrame % 10 == 0) {
-            if (!Objects.requireNonNull(screen).getTitle().getString().isEmpty()) {
-                mc.getWindow().setTitle(buildMainMenuBar(mc, screen.getTitle().getString()));
-            }
-            guiFrame = 0;
+        if (!Objects.requireNonNull(screen).getTitle().getString().isEmpty()) {
+            Bartender.serve(mc, () -> buildMainMenuBar(mc, screen.getTitle().getString()));
         }
     }
 }
