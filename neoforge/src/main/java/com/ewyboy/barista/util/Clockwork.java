@@ -22,12 +22,12 @@ public class Clockwork {
         StringBuilder builder = new StringBuilder();
         Duration duration = Duration.ofSeconds(sec);
 
-        int clockSec = sec % 60;
-        int clockMin = (int) duration.toMinutes();
-        int clockHrs = (int) duration.toHours();
+        long clockHrs = duration.toHours();
+        int clockMin = duration.toMinutesPart();
+        int clockSec = duration.toSecondsPart();
 
         if (clockHrs != 0) {
-            builder.append(duration.toHours()).append(clockHrs > 1
+            builder.append(clockHrs).append(clockHrs > 1
                     ? formatTranslation(SESSION_HOURS)
                     : formatTranslation(SESSION_HOUR)
             );
@@ -35,7 +35,7 @@ public class Clockwork {
         }
 
         if (clockMin != 0) {
-            builder.append(duration.toMinutes()).append(clockMin > 1
+            builder.append(clockMin).append(clockMin > 1
                     ? formatTranslation(SESSION_MINUTES)
                     : formatTranslation(SESSION_MINUTE)
             );
@@ -49,7 +49,7 @@ public class Clockwork {
             );
         }
 
-        return builder.toString();
+        return builder.toString().stripTrailing();
     }
 
 
