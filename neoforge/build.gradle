@@ -13,15 +13,14 @@ base {
     archivesName = MODNAME
 }
 
-java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+// Mojang ships Java 25 to end users in 26.2, so mods must target Java 25.
+java.toolchain.languageVersion = JavaLanguageVersion.of(25)
 
 neoForge {
     version = "${NEO_VERSION}"
 
-    parchment {
-        mappingsVersion = "${PARCHMENT_MAPPINGS_VERSION}"
-        minecraftVersion = "${PARCHMENT_MINECRAFT_VERSION}"
-    }
+    // No parchment block: ParchmentMC has not published mappings for 26.2 (latest is 1.21.11),
+    // so this builds against the official NeoForge names.
 
     // src/main/resources/META-INF/accesstransformer.cfg is picked up automatically.
 

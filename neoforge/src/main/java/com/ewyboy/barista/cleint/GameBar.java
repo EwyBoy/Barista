@@ -6,6 +6,7 @@ import com.ewyboy.barista.module.ModuleHandler;
 import com.ewyboy.barista.util.Bartender;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.LevelLoadingScreen;
+import net.minecraft.util.Mth;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.client.event.RenderGuiLayerEvent;
 import net.neoforged.neoforge.client.event.ScreenEvent;
@@ -16,7 +17,7 @@ public class GameBar {
 
     public void renderOverlay() {
         if (mc.isPaused()) return;
-        if (mc.screen != null) return;
+        if (mc.gui.screen() != null) return;
 
         Bartender.serve(mc, () -> buildBar(mc));
     }
@@ -29,7 +30,7 @@ public class GameBar {
     @SubscribeEvent
     public void onScreenDraw(ScreenEvent.Render.Post event) {
         if (event.getScreen() instanceof LevelLoadingScreen loadingScreen) {
-            Bartender.serve(mc, () -> buildMainMenuBar(mc, "World Loading: " + loadingScreen.progressListener.getProgress() + "%"));
+            Bartender.serve(mc, () -> buildMainMenuBar(mc, "World Loading: " + Mth.floor(loadingScreen.loadTracker.serverProgress() * 100.0F) + "%"));
         } else if (!event.getScreen().getTitle().getString().isEmpty()) {
             Bartender.serve(mc, () -> buildMainMenuBar(mc, event.getScreen().getTitle().getString()));
         }

@@ -4,6 +4,7 @@ import com.ewyboy.barista.Barista;
 import com.ewyboy.barista.json.JsonHandler;
 import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.client.KeyMapping;
+import net.minecraft.resources.Identifier;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.client.event.InputEvent;
@@ -17,8 +18,17 @@ public class Keybindings {
 
     private static KeyMapping reload;
 
+    /**
+     * 26.2 replaced the free form category string with a registered Category keyed by an Identifier,
+     * whose label comes from the "key.category.<namespace>.<path>" translation.
+     */
+    private static final KeyMapping.Category CATEGORY = new KeyMapping.Category(
+            Identifier.fromNamespaceAndPath(Barista.MOD_ID, Barista.MOD_ID)
+    );
+
     public static void onRegisterKeyBinds(RegisterKeyMappingsEvent event) {
-        reload = new KeyMapping("barista.key.reload", KeyConflictContext.IN_GAME, InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_F12, Barista.NAME);
+        event.registerCategory(CATEGORY);
+        reload = new KeyMapping("barista.key.reload", KeyConflictContext.IN_GAME, InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_F12, CATEGORY);
         event.register(reload);
     }
 
