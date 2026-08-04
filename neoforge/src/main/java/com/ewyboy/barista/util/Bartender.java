@@ -3,6 +3,7 @@ package com.ewyboy.barista.util;
 import net.minecraft.client.Minecraft;
 
 import java.util.function.Supplier;
+import java.util.regex.Pattern;
 
 /**
  * Serves the bar to the window title, but only as fast as anyone can actually read it.
@@ -15,6 +16,13 @@ import java.util.function.Supplier;
 public class Bartender {
 
     private static final long UPDATE_INTERVAL_MS = 100;
+
+    /**
+     * A window title is a single line, but the strings we paste into it are not always.
+     * Screen titles in particular can carry newlines, which leaves the title bar rendering
+     * across several lines. Precompiled because this runs on every update.
+     */
+    private static final Pattern WHITESPACE = Pattern.compile("\\s+");
 
     private static long lastUpdate = 0;
     private static String lastTitle = "";
@@ -30,12 +38,17 @@ public class Bartender {
         if (now - lastUpdate < UPDATE_INTERVAL_MS) return;
         lastUpdate = now;
 
-        String title = bar.get();
+        String title = flatten(bar.get());
 
         if (title.equals(lastTitle)) return;
         lastTitle = title;
 
         mc.getWindow().setTitle(title);
+    }
+
+    /** Collapses every run of whitespace to a single space so the bar stays on one line. */
+    private static String flatten(String title) {
+        return WHITESPACE.matcher(title).replaceAll(" ").strip();
     }
 
 }
