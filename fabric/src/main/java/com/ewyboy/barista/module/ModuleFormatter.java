@@ -57,7 +57,7 @@ public class ModuleFormatter {
     }
 
     public static String formatDimension(ResourceKey<Level> dimension) {
-        String name = Objects.requireNonNull(dimension.location().getPath()).replace('_', ' ');
+        String name = Objects.requireNonNull(dimension.identifier().getPath()).replace('_', ' ');
         return WordUtils.capitalize(name);
     }
 

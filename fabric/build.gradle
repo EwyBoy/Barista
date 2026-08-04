@@ -1,10 +1,13 @@
 plugins {
-    id 'fabric-loom' version '1.9-SNAPSHOT'
+    // Fabric's own 26.2 template pins a Loom snapshot: no stable Loom release yet supports
+    // building against an unobfuscated Minecraft without a mappings dependency.
+    id 'net.fabricmc.fabric-loom' version '1.17-SNAPSHOT'
     id 'net.darkhax.curseforgegradle' version '1.1.28'
     id 'maven-publish'
 }
 
-java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+// Mojang ships Java 25 to end users in 26.2, so mods must target Java 25.
+java.toolchain.languageVersion = JavaLanguageVersion.of(25)
 
 base {
     archivesName = project.MOD_NAME
@@ -13,31 +16,25 @@ version = project.MC_VERSION_GENERAL + "-" + project.VERSION + "-" + project.MOD
 group = project.MAVEN_GROUP
 
 repositories {
-    maven { url = "https://maven.shedaniel.me/" }
-    maven { url = "https://maven.terraformersmc.com/" }
-    maven { url = "https://maven.gegy.dev" }
+    // Loom adds the Minecraft and Fabric repositories itself. Nothing else is needed now that
+    // the unused ModMenu and Cloth Config dependencies are gone.
 }
 
 dependencies {
     minecraft "com.mojang:minecraft:${project.MC_VERSION}"
-    mappings loom.officialMojangMappings()
+    // No mappings declaration: Minecraft 26.2 ships deobfuscated, Mojang no longer publishes
+    // client_mappings, and Loom no longer expects a mappings dependency.
 
-    modImplementation "net.fabricmc:fabric-loader:${project.LOADER_VERSION}"
-    modImplementation "net.fabricmc.fabric-api:fabric-api:${project.FABRIC_VERSION}"
+    implementation "net.fabricmc:fabric-loader:${project.LOADER_VERSION}"
+    implementation "net.fabricmc.fabric-api:fabric-api:${project.FABRIC_VERSION}"
 
-    includeFabricApiModule "fabric-key-binding-api-v1"
+    includeFabricApiModule "fabric-key-mapping-api-v1"
     includeFabricApiModule "fabric-lifecycle-events-v1"
-
-    modImplementation "com.terraformersmc:modmenu:${project.MODMENU_VERSION}"
-
-    /*modRuntimeOnly ("supercoder79:databreaker:${project.DATABREAKER_VERSION}") {
-        exclude module: "fabric-loader"
-    }*/
 }
 
 def includeFabricApiModule(String moduleName) {
     Object dependency = fabricApi.module(moduleName, project.FABRIC_VERSION)
-    dependencies.modImplementation(dependency)
+    dependencies.implementation(dependency)
     dependencies.include(dependency)
 }
 
@@ -52,7 +49,7 @@ processResources {
 tasks.withType(JavaCompile).configureEach {
 
     it.options.encoding = "UTF-8"
-    def targetVersion = 21
+    def targetVersion = 25
 
     if (JavaVersion.current().isJava9Compatible()) {
         it.options.release = targetVersion
@@ -78,9 +75,10 @@ task curseforge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge) {
         apiToken = project.getProperty('CF_API_KEY')
     }
 
-    // Must be remapJar, not jar. Loom leaves the `jar` output in build/devlibs with named
-    // mappings, which do not exist at runtime, so uploading it would ship a mod that cannot load.
-    def mainFile = upload(project.PROJECT_ID, remapJar)
+    // On 26.2 this is `jar`, not `remapJar`. Minecraft ships deobfuscated so Loom performs no
+    // remap step and no longer registers a remapJar task at all; `jar` is the production artifact.
+    // Note this is the opposite of the 1.21.1 branch, where uploading `jar` would ship a dev jar.
+    def mainFile = upload(project.PROJECT_ID, jar)
     mainFile.releaseType = "${RELEASE_TYPE}"
     mainFile.addModLoader "${MOD_LOADER}"
     mainFile.addGameVersion "${MC_VERSION}"

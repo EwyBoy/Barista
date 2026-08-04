@@ -21,7 +21,7 @@ public class JsonHandler {
 
     static {
         modules.add(new BarModule("icon", true, "icon.png"));
-        modules.add(new BarModule("text", true, "Minecraft " + SharedConstants.getCurrentVersion().getName()));
+        modules.add(new BarModule("text", true, "Minecraft " + SharedConstants.getCurrentVersion().name()));
         modules.add(new BarModule("mods", true));
 
         modules.add(new BarModule("clock", true, "HH:mm:ss"));

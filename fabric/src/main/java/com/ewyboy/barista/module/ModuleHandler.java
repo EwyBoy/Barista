@@ -40,14 +40,7 @@ public class ModuleHandler {
     }
 
     public static void getFps(Minecraft mc, StringBuilder builder) {
-        builder.append(ModuleFormatter.formatTranslation(frameRate(mc), Translation.Bar.FPS)).append(separator);
-    }
-
-    /** fpsString reads "%d fps T: ..", so slice off the count instead of compiling a regex every call. */
-    private static String frameRate(Minecraft mc) {
-        String fps = mc.fpsString;
-        int space = fps.indexOf(' ');
-        return space == -1 ? fps : fps.substring(0, space);
+        builder.append(ModuleFormatter.formatTranslation(String.valueOf(mc.getFps()), Translation.Bar.FPS)).append(separator);
     }
 
     public static void getPing(Minecraft mc, StringBuilder builder) {
@@ -94,7 +87,7 @@ public class ModuleHandler {
 
     public static void getBiome(Minecraft mc, StringBuilder builder) {
         if (mc.player != null) {
-            builder.append(ModuleFormatter.formatTranslation(Translation.Bar.BIOME)).append(x).append(ModuleFormatter.formatBiome(Objects.requireNonNull(Objects.requireNonNull(mc.level).registryAccess().registryOrThrow(Registries.BIOME).getKey(mc.level.getBiome(Objects.requireNonNull(mc.getCameraEntity()).blockPosition()).value())).toString())).append(separator);
+            builder.append(ModuleFormatter.formatTranslation(Translation.Bar.BIOME)).append(x).append(ModuleFormatter.formatBiome(Objects.requireNonNull(Objects.requireNonNull(mc.level).registryAccess().lookupOrThrow(Registries.BIOME).getKey(mc.level.getBiome(Objects.requireNonNull(mc.getCameraEntity()).blockPosition()).value())).toString())).append(separator);
         }
     }
 
@@ -147,13 +140,13 @@ public class ModuleHandler {
 
     public static void getDay(Minecraft mc, StringBuilder builder) {
         if (mc.level != null) {
-            builder.append(ModuleFormatter.formatTranslation(Translation.Bar.DAY)).append(x).append(mc.level.getDayTime() / 24000L).append(separator);
+            builder.append(ModuleFormatter.formatTranslation(Translation.Bar.DAY)).append(x).append(mc.level.getDefaultClockTime() / 24000L).append(separator);
         }
     }
 
     public static void getTime(Minecraft mc, StringBuilder builder) {
         if (mc.level != null) {
-            builder.append(Clockwork.getTimeOfDay(mc.level.getDayTime())).append(separator);
+            builder.append(Clockwork.getTimeOfDay(mc.level.getDefaultClockTime())).append(separator);
         }
     }
 
